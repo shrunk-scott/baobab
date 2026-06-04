@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact · Baobab Consulting</title>
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/tweaks.css">
+<link rel="stylesheet" href="assets/responsive.css">
+<script src="assets/site.js" defer></script>
+<style>
+  .page-hero { padding: 80px 0 32px; }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 64px;
+    margin-top: 24px;
+    align-items: start;
+  }
+  .form-card {
+    background: var(--surface);
+    border: 1px solid var(--hair-c);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+  }
+  .form-card .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+  .form-card .form-row.single { grid-template-columns: 1fr; }
+  .form-card label {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-2);
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .form-card input.field-text,
+  .form-card select,
+  .form-card textarea {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    background: var(--bg);
+    border: 1px solid var(--hair-c);
+    border-radius: var(--radius);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--ink);
+    transition: border-color 0.15s var(--ease);
+  }
+  .form-card textarea {
+    height: 130px;
+    padding: 12px 14px;
+    resize: vertical;
+    line-height: 1.55;
+  }
+  .form-card select { appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23556070' stroke-width='1.5'><path d='M3 5l3 3 3-3'/></svg>"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 32px; }
+  .form-card input:focus, .form-card select:focus, .form-card textarea:focus { outline: 0; border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in oklch, var(--primary) 18%, transparent); }
+  .checkbox-row { display: flex; gap: 12px; align-items: flex-start; font-size: 13px; color: var(--ink-2); line-height: 1.55; }
+  .checkbox-row input { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--primary); }
+
+  .topic-tiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .topic-tile {
+    border: 1px solid var(--hair-c);
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1.4;
+    transition: all 0.15s var(--ease);
+  }
+  .topic-tile:hover { border-color: var(--ink-3); }
+  .topic-tile[data-active="true"] {
+    border-color: var(--ink);
+    background: var(--surface-2);
+  }
+  .topic-tile strong { display: block; font-weight: 500; }
+  .topic-tile span { font-size: 11px; color: var(--ink-3); }
+
+  /* Sidebar */
+  .contact-side > div {
+    background: var(--surface);
+    border: 1px solid var(--hair-c);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+  .contact-side h4 { font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 14px; color: var(--ink-2); }
+  .contact-side .row {
+    display: flex; gap: 14px;
+    padding: 10px 0;
+    border-top: 1px solid var(--hair-2);
+    font-size: 13px;
+  }
+  .contact-side .row:first-of-type { border-top: 0; }
+  .contact-side .row .lab { color: var(--ink-3); width: 80px; flex-shrink: 0; font-family: var(--font-mono); font-size: 11px; padding-top: 2px; }
+  .contact-side .row .v { color: var(--ink-2); line-height: 1.55; }
+  .contact-side .row .v strong { color: var(--ink); font-weight: 500; }
+  .office-map {
+    display: block; margin-top: 14px;
+    border: 1px solid var(--hair-c); border-radius: 10px;
+    overflow: hidden; position: relative;
+    transition: border-color 0.15s var(--ease);
+  }
+  .office-map:hover { border-color: var(--ink); }
+  .office-map iframe {
+    width: 100%; height: 180px; border: 0; display: block;
+    filter: grayscale(0.3) contrast(1.02);
+  }
+  .office-map-pin {
+    display: block; padding: 10px 14px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
+    color: var(--ink-2); background: var(--surface);
+    border-top: 1px solid var(--hair-c);
+  }
+  .office-map:hover .office-map-pin { color: var(--ink); }
+
+  .contact-side .response-strip {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 20px 24px;
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    border: 0;
+    display: flex; gap: 14px; align-items: center;
+  }
+  .response-strip strong { font-weight: 500; display: block; color: var(--bg); }
+  .response-strip .dot { background: var(--accent); width: 8px; height: 8px; border-radius: 999px; flex-shrink: 0; }
+  .response-strip span { font-size: 12px; color: rgba(255,255,255,0.65); }
+
+  .submitted {
+    background: var(--surface);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+    display: none;
+  }
+  .submitted h3 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; margin-bottom: 8px; }
+  .submitted p { color: var(--ink-2); font-size: 14px; line-height: 1.55; }
+  body[data-submitted="true"] .form-card { display: none; }
+  body[data-submitted="true"] .submitted { display: block; }
+
+  @media (max-width: 880px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .form-card .form-row { grid-template-columns: 1fr; }
+    .topic-tiles { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+
+<main class="container-wide">
+  <section class="page-hero">
+    <div class="eyebrow">Contact</div>
+    <h1 class="display-2" style="margin-top: 22px; max-width: 800px;">Tell us about your <span class="serif italic" style="color: var(--primary);">household.</span></h1>
+    <p class="lead" style="max-width: 620px; margin-top: 28px;">
+      A 30-minute discovery call to see if Baobab fits. We’ll ask about your setup, you’ll ask about ours, and at the end we both decide.
+    </p>
+  </section>
+
+  <div class="contact-grid">
+    <div>
+      <div class="form-card" id="contact-form">
+        <div style="margin-bottom: 24px;">
+          <label>What’s this about?</label>
+          <div class="topic-tiles">
+            <button class="topic-tile" data-topic="standard"><strong>Standard engagement</strong><span>One household, basic setup</span></button>
+            <button class="topic-tile" data-topic="family" data-active="true"><strong>Family + trust</strong><span>Two adults, properties, trust</span></button>
+            <button class="topic-tile" data-topic="bespoke"><strong>Bespoke / business owner</strong><span>Multi-entity, SMSF</span></button>
+            <button class="topic-tile" data-topic="general"><strong>General question</strong><span>Not ready to engage</span></button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div><label>Name</label><input class="field-text" type="text" placeholder="Your full name"></div>
+          <div><label>Phone</label><input class="field-text" type="tel" placeholder="04XX XXX XXX"></div>
+        </div>
+        <div class="form-row single">
+          <div><label>Email</label><input class="field-text" type="email" placeholder="you@example.com"></div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label>Combined household income</label>
+            <select>
+              <option>Prefer not to say</option>
+              <option>Under $200k</option>
+              <option>$200–350k</option>
+              <option>$350–500k</option>
+              <option>$500k+</option>
+            </select>
+          </div>
+          <div>
+            <label>Where are you based?</label>
+            <select>
+              <option>Melbourne / Victoria</option>
+              <option>Sydney / NSW</option>
+              <option>Adelaide / SA</option>
+              <option>Brisbane / QLD</option>
+              <option>Perth / WA</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row single">
+          <div>
+            <label>What would you like Baobab to help with?</label>
+            <textarea placeholder="A short paragraph is fine. Properties, structures, kids, super — whatever feels relevant."></textarea>
+          </div>
+        </div>
+        <div class="checkbox-row" style="margin-top: 8px; margin-bottom: 24px;">
+          <input type="checkbox" id="ack">
+          <label for="ack" style="font-size: 13px; color: var(--ink-2); margin: 0;">I understand Baobab provides planning and modelling — not personal financial product advice — and that this enquiry does not create an engagement.</label>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="muted" style="font-size: 12px;">Typical response: same business day.</span>
+          <button class="btn btn-primary btn-lg" id="submit-btn">Send enquiry <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+
+      <div class="submitted">
+        <h3>Got it — thank you.</h3>
+        <p>Mai or Priya will reply by end of business today with a Calendly link for the discovery call. If you don’t see anything, check your spam, or call us on (03) 9XXX XXXX.</p>
+      </div>
+    </div>
+
+    <aside class="contact-side">
+      <div class="response-strip">
+        <span class="dot"></span>
+        <div>
+          <strong>Currently accepting clients</strong>
+          <span>Next information session is in 1 week</span>
+        </div>
+      </div>
+
+      <div>
+        <h4>Office</h4>
+        <div class="row"><span class="lab">Address</span><span class="v"><strong>286 Albert Road</strong><br/>South Melbourne VIC 3205</span></div>
+        <div class="row"><span class="lab">Phone</span><span class="v"><strong>(03) 9XXX XXXX</strong><br/>Mon–Fri, 9am–5pm AEST</span></div>
+        <div class="row"><span class="lab">Email</span><span class="v"><strong>hello@baobabconsulting.com.au</strong></span></div>
+        <a class="office-map" href="https://www.google.com/maps/search/?api=1&query=286+Albert+Road+South+Melbourne+VIC+3205" target="_blank" rel="noopener" aria-label="Open 286 Albert Road, South Melbourne in Google Maps">
+          <iframe title="Map — 286 Albert Road, South Melbourne VIC 3205" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=286%20Albert%20Road%20South%20Melbourne%20VIC%203205&z=15&output=embed"></iframe>
+          <span class="office-map-pin">286 Albert Road · open in Maps →</span>
+        </a>
+      </div>
+
+      <div>
+        <h4>Already a client?</h4>
+        <div class="row"><span class="lab">Portal</span><span class="v">Sign in to your dashboard at any time — your numbers persist between visits.</span></div>
+        <a href="login.html" class="btn btn-secondary btn-sm" style="width: 100%; justify-content: center; margin-top: 10px;">Client sign in →</a>
+      </div>
+    </aside>
+  </div>
+
+  <section style="margin: 80px 0;">
+    <div class="grid col-3 gap-4">
+      <div>
+        <div class="serif italic" style="font-size: 20px; color: var(--accent); margin-bottom: 12px;">First call</div>
+        <p class="muted" style="font-size: 14px; line-height: 1.6;">30 minutes, video. No deck. We’ll ask about your setup; you’ll ask whatever you want about ours. We send a written summary the same day.</p>
+      </div>
+      <div>
+        <div class="serif italic" style="font-size: 20px; color: var(--accent); margin-bottom: 12px;">If we’re a fit</div>
+        <p class="muted" style="font-size: 14px; line-height: 1.6;">Engagement letter, fixed fee, an onboarding session in week 2 to populate the workbook. You’ll have the live portal by day 30.</p>
+      </div>
+      <div>
+        <div class="serif italic" style="font-size: 20px; color: var(--accent); margin-bottom: 12px;">If we’re not</div>
+        <p class="muted" style="font-size: 14px; line-height: 1.6;">We’ll tell you why and where we think you should go. We have a short list of trusted firms for SMSF-only, business CFO and high-frequency-trader work.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script>
+  document.querySelectorAll('.topic-tile').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.topic-tile').forEach(x => x.dataset.active = 'false');
+    t.dataset.active = 'true';
+  }));
+  document.getElementById('submit-btn').addEventListener('click', () => {
+    document.body.dataset.submitted = 'true';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>

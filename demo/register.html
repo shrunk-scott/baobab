@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create your account · Baobab</title>
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/tweaks.css">
+<link rel="stylesheet" href="assets/responsive.css">
+<script src="assets/site.js" defer></script>
+<script src="assets/auth.js" defer></script>
+<style>
+  body { background: var(--surface); }
+  .auth-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+  }
+
+  /* ── LHS — dark editorial side ───────────────────────────── */
+  .auth-side {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 56px 64px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .auth-side::before {
+    content: "";
+    position: absolute; right: -20%; top: -20%;
+    width: 90%; height: 90%;
+    background: radial-gradient(closest-side, color-mix(in oklch, var(--accent) 40%, transparent), transparent 72%);
+    pointer-events: none;
+  }
+  .auth-side .brand { position: relative; z-index: 1; }
+  .auth-side .brand .b1, .auth-side .brand .b2 { color: var(--bg); }
+  .auth-side .brand .brand-mark { background: var(--accent); }
+
+  .auth-side .pitch {
+    position: relative; z-index: 1;
+    max-width: 480px;
+  }
+  .auth-side .pitch .eyebrow {
+    color: color-mix(in oklch, var(--bg) 60%, transparent);
+    margin-bottom: 24px;
+  }
+  .auth-side .pitch .eyebrow::before { background: color-mix(in oklch, var(--bg) 60%, transparent); }
+  .auth-side .pitch h2 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    color: var(--bg);
+    margin: 0;
+  }
+  .auth-side .pitch h2 em {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--accent);
+  }
+  .auth-side .pitch p {
+    margin-top: 22px;
+    color: color-mix(in oklch, var(--bg) 70%, transparent);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .auth-side .checks {
+    position: relative; z-index: 1;
+    list-style: none; padding: 0; margin: 32px 0 0;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .auth-side .checks li {
+    display: flex; align-items: flex-start; gap: 12px;
+    color: color-mix(in oklch, var(--bg) 80%, transparent);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .auth-side .checks li::before {
+    content: "✓";
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: color-mix(in oklch, var(--accent) 30%, transparent);
+    color: var(--accent);
+    font-size: 11px;
+    flex-shrink: 0;
+    display: grid; place-items: center;
+    margin-top: 1px;
+  }
+
+  .auth-side .stats {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    padding-top: 32px;
+    border-top: 1px solid color-mix(in oklch, var(--bg) 15%, transparent);
+  }
+  .auth-side .stats .v {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .auth-side .stats .l {
+    font-size: 11px;
+    color: color-mix(in oklch, var(--bg) 60%, transparent);
+    margin-top: 8px;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── RHS — form side ─────────────────────────────────────── */
+  .auth-main {
+    background: var(--surface);
+    padding: 48px 64px 56px;
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+  }
+  .auth-topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 32px;
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+  .auth-topbar a { color: var(--ink-2); }
+  .auth-topbar a:hover { color: var(--ink); }
+  .auth-topbar .right { display: flex; gap: 16px; align-items: center; }
+
+  .auth-wrap {
+    max-width: 480px;
+    width: 100%;
+    margin: auto 0;
+  }
+  .auth-wrap h1 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: clamp(32px, 3.6vw, 44px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin: 0 0 12px;
+  }
+  .auth-wrap h1 em {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--primary);
+  }
+  .auth-wrap .deck {
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 0 0 32px;
+  }
+
+  /* ── Stepper ─────────────────────────────────────────────── */
+  .stepper {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 32px;
+  }
+  .stepper .step {
+    flex: 1;
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .stepper .step .n {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--hair-c);
+    display: grid; place-items: center;
+    background: var(--surface);
+    flex-shrink: 0;
+    transition: all 0.2s var(--ease);
+  }
+  .stepper .step[data-state="done"] .n {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .stepper .step[data-state="done"] .n::before {
+    content: "✓"; font-size: 11px;
+  }
+  .stepper .step[data-state="done"] .n .lbl { display: none; }
+  .stepper .step[data-state="active"] {
+    color: var(--ink);
+  }
+  .stepper .step[data-state="active"] .n {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+  .stepper .step .label {
+    white-space: nowrap;
+  }
+  .stepper .conn {
+    flex: 0 0 24px;
+    height: 1px;
+    background: var(--hair-c);
+  }
+
+  /* ── Fieldsets ───────────────────────────────────────────── */
+  .pane { display: none; animation: fade 0.25s var(--ease); }
+  .pane[data-active="true"] { display: block; }
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .field-block { margin-bottom: 18px; }
+  .field-block label {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-2);
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .field-block .row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 6px;
+  }
+  .field-block .row .hint {
+    font-size: 11px;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+  }
+  .input {
+    width: 100%; height: 48px;
+    background: var(--bg);
+    border: 1px solid var(--hair-c);
+    border-radius: 10px;
+    padding: 0 14px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--ink);
+    transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+  }
+  .input:focus {
+    outline: 0;
+    border-color: var(--ink);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--primary) 18%, transparent);
+  }
+  textarea.input {
+    height: auto; padding: 12px 14px;
+    min-height: 96px; resize: vertical;
+    line-height: 1.5;
+  }
+  .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .input-row.three { grid-template-columns: 1fr 1fr 1fr; }
+
+  /* Password strength */
+  .pw-meter { display: flex; gap: 4px; margin-top: 8px; }
+  .pw-meter span {
+    flex: 1; height: 3px; border-radius: 2px;
+    background: var(--hair-c);
+    transition: background 0.2s var(--ease);
+  }
+  .pw-meter[data-score="1"] span:nth-child(-n+1),
+  .pw-meter[data-score="2"] span:nth-child(-n+2),
+  .pw-meter[data-score="3"] span:nth-child(-n+3),
+  .pw-meter[data-score="4"] span:nth-child(-n+4) {
+    background: var(--accent);
+  }
+  .pw-meter[data-score="4"] span { background: var(--pos); }
+  .pw-hint {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Radio-tile picker (for tier) */
+  .tile-pick {
+    display: grid; grid-template-columns: 1fr; gap: 10px;
+  }
+  .tile {
+    border: 1px solid var(--hair-c);
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 16px 18px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s var(--ease);
+    display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center;
+  }
+  .tile:hover { border-color: var(--ink-3); }
+  .tile[data-active="true"] {
+    border-color: var(--ink);
+    background: var(--surface);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--primary) 15%, transparent);
+  }
+  .tile .tile-title {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  .tile .tile-sub {
+    font-size: 12px; color: var(--ink-3);
+    line-height: 1.45;
+  }
+  .tile .price {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+    text-align: right;
+  }
+  .tile .price small {
+    display: block;
+    font-size: 10px;
+    color: var(--ink-3);
+    margin-top: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Checkbox row */
+  .check-row {
+    display: flex; gap: 12px;
+    margin: 22px 0;
+    align-items: flex-start;
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+  .check-row input {
+    width: 18px; height: 18px;
+    accent-color: var(--ink);
+    margin-top: 1px;
+  }
+  .check-row a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Actions */
+  .pane-actions {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 32px;
+    gap: 12px;
+  }
+  .pane-actions .btn { height: 46px; padding: 0 22px; font-size: 14px; border-radius: 10px; }
+  .pane-actions .btn-primary { background: var(--ink); color: var(--bg); }
+  .pane-actions .btn-primary:hover { background: var(--accent); }
+  .pane-actions .btn-ghost { color: var(--ink-2); }
+  .pane-actions .step-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.06em;
+  }
+
+  /* SSO row */
+  .sso-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    margin: 20px 0;
+  }
+  .sso {
+    height: 44px;
+    background: var(--bg);
+    border: 1px solid var(--hair-c);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-size: 13px;
+    color: var(--ink);
+    transition: border-color 0.15s var(--ease);
+  }
+  .sso:hover { border-color: var(--ink-3); }
+  .sso svg { width: 16px; height: 16px; }
+  .or {
+    display: flex; align-items: center; gap: 14px;
+    margin: 22px 0;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+  .or::before, .or::after { content: ""; flex: 1; height: 1px; background: var(--hair-c); }
+
+  /* Done state */
+  .done-state { text-align: center; padding: 40px 0; }
+  .done-state .check-mark {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--bg);
+    margin: 0 auto 20px;
+    display: grid; place-items: center;
+    font-size: 28px;
+    animation: pop 0.4s var(--ease);
+  }
+  @keyframes pop { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .done-state h2 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 28px;
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+  }
+  .done-state p {
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 380px;
+    margin: 0 auto 28px;
+  }
+
+  /* Mobile */
+  @media (max-width: 980px) {
+    .auth-shell { grid-template-columns: 1fr; }
+    .auth-side { display: none; }
+    .auth-main { padding: 28px 24px 48px; }
+    .input-row, .input-row.three { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="auth-shell">
+
+  <!-- ── LEFT EDITORIAL SIDE ───────────────────────────────────── -->
+  <aside class="auth-side">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-text">
+        <span class="b1">Baobab</span>
+        <span class="b2">Consulting</span>
+      </span>
+    </div>
+
+    <div class="pitch">
+      <div class="eyebrow">New client onboarding</div>
+      <h2>Your household balance sheet,<br><em>modelled</em> in the open.</h2>
+      <p>One workbook. Twelve linked schedules. A planner who picks up the phone. We take a small intake every quarter — keep your spot.</p>
+
+      <ul class="checks">
+        <li>Twelve continuously-recalculated schedules — tax, cashflow, debt, super.</li>
+        <li>Quarterly reviews with your dedicated planner — every tier.</li>
+        <li>Upload your numbers via the standard upload template — no rebuild needed.</li>
+        <li>Your data stays in your browser — local-first, exportable, yours.</li>
+      </ul>
+    </div>
+
+    <div class="stats">
+      <div><div class="v">187</div><div class="l">Active client households</div></div>
+      <div><div class="v">$248m</div><div class="l">Modelled aggregate AUM</div></div>
+      <div><div class="v">4×</div><div class="l">Reviews per year, every tier</div></div>
+    </div>
+  </aside>
+
+  <!-- ── RIGHT FORM SIDE ───────────────────────────────────────── -->
+  <main class="auth-main">
+
+    <div class="auth-topbar">
+      <a href="index.html">← back to baobab.com.au</a>
+      <div class="right">
+        <span class="note">already a client?</span>
+        <a href="login.html" class="btn btn-secondary btn-sm">Sign in</a>
+      </div>
+    </div>
+
+    <div class="auth-wrap">
+      <h1>Create your <em>portal</em>.</h1>
+      <p class="deck">Three steps, about 90 seconds. You can come back to populate the workbook any time — we'll send the upload template right after.</p>
+
+      <!-- Stepper -->
+      <div class="stepper" id="stepper">
+        <div class="step" data-state="active" data-step="1"><span class="n"><span class="lbl">1</span></span><span class="label">Account</span></div>
+        <div class="conn"></div>
+        <div class="step" data-step="2"><span class="n"><span class="lbl">2</span></span><span class="label">Household</span></div>
+        <div class="conn"></div>
+        <div class="step" data-step="3"><span class="n"><span class="lbl">3</span></span><span class="label">Plan</span></div>
+      </div>
+
+      <form id="reg-form" novalidate>
+
+        <!-- ── PANE 1 — ACCOUNT ───────────────────────────── -->
+        <fieldset class="pane" data-active="true" data-pane="1">
+          <div class="sso-row">
+            <button type="button" class="sso">
+              <svg viewBox="0 0 24 24" fill="none"><path fill="#4285F4" d="M22.5 12.27c0-.79-.07-1.55-.21-2.27H12v4.3h5.92c-.26 1.36-1.04 2.51-2.21 3.28v2.72h3.57c2.09-1.93 3.22-4.77 3.22-8.03z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.99 7.28-2.69l-3.57-2.72c-.99.66-2.25 1.06-3.71 1.06-2.85 0-5.27-1.93-6.13-4.52H2.18v2.84C3.99 20.5 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.87 14.13c-.22-.66-.34-1.36-.34-2.13s.12-1.47.34-2.13V7.03H2.18C1.43 8.53 1 10.22 1 12s.43 3.47 1.18 4.97l3.69-2.84z"/><path fill="#EA4335" d="M12 5.62c1.62 0 3.07.56 4.21 1.65l3.15-3.15C17.45 2.32 14.97 1.27 12 1.27 7.7 1.27 3.99 3.5 2.18 7.03l3.69 2.84c.86-2.59 3.28-4.25 6.13-4.25z"/></svg>
+              Google
+            </button>
+            <button type="button" class="sso">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 12.65c-.04-2.7 2.2-3.99 2.3-4.06-1.26-1.83-3.21-2.08-3.91-2.11-1.67-.17-3.25.97-4.1.97-.86 0-2.15-.95-3.54-.92-1.82.03-3.5 1.06-4.43 2.69-1.9 3.3-.49 8.16 1.36 10.83.9 1.31 1.98 2.78 3.4 2.72 1.36-.05 1.88-.88 3.53-.88 1.64 0 2.11.88 3.55.85 1.47-.02 2.4-1.33 3.3-2.65 1.04-1.52 1.47-3 1.49-3.07-.03-.02-2.85-1.1-2.88-4.36zM14.91 4.95c.75-.91 1.26-2.17 1.12-3.43-1.08.04-2.39.72-3.17 1.62-.7.8-1.31 2.08-1.15 3.32 1.2.09 2.44-.61 3.2-1.51z"/></svg>
+              Apple
+            </button>
+          </div>
+
+          <div class="or">or with email</div>
+
+          <div class="input-row">
+            <div class="field-block">
+              <label>First name</label>
+              <input class="input" type="text" name="firstName" placeholder="Lina" autocomplete="given-name">
+            </div>
+            <div class="field-block">
+              <label>Last name</label>
+              <input class="input" type="text" name="lastName" placeholder="Le" autocomplete="family-name">
+            </div>
+          </div>
+
+          <div class="field-block">
+            <label>Email address</label>
+            <input class="input" type="email" name="email" placeholder="you@example.com" autocomplete="email">
+          </div>
+
+          <div class="field-block">
+            <div class="row">
+              <label style="margin: 0;">Password</label>
+              <span class="hint" id="pw-strength-label">strength</span>
+            </div>
+            <input class="input" type="password" name="password" id="pw" placeholder="At least 10 characters" autocomplete="new-password">
+            <div class="pw-meter" id="pw-meter" data-score="0"><span></span><span></span><span></span><span></span></div>
+            <div class="pw-hint">Mix letters, numbers, symbols. We never store this on our servers.</div>
+          </div>
+
+          <div class="pane-actions">
+            <span class="step-meta">Step 1 / 3</span>
+            <button class="btn btn-primary" type="button" data-next>Continue <span aria-hidden="true">→</span></button>
+          </div>
+        </fieldset>
+
+        <!-- ── PANE 2 — HOUSEHOLD ─────────────────────────── -->
+        <fieldset class="pane" data-pane="2">
+          <div class="field-block">
+            <label>Household / family name</label>
+            <input class="input" type="text" name="family" placeholder="e.g. Jones family trust" autocomplete="family-name">
+          </div>
+
+          <div class="input-row">
+            <div class="field-block">
+              <label>Adults in plan</label>
+              <select class="input" name="adults">
+                <option>1 adult</option>
+                <option selected>2 adults</option>
+                <option>3+ adults</option>
+              </select>
+            </div>
+            <div class="field-block">
+              <label>Dependents</label>
+              <select class="input" name="deps">
+                <option>0</option>
+                <option>1</option>
+                <option selected>2</option>
+                <option>3</option>
+                <option>4+</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-block">
+            <label>Entities involved</label>
+            <div class="chips-bar" id="entity-chips" style="margin-bottom: 0;"></div>
+          </div>
+
+          <div class="input-row three" style="margin-top: 18px;">
+            <div class="field-block">
+              <label>State</label>
+              <select class="input" name="state">
+                <option>VIC</option><option>NSW</option><option>QLD</option>
+                <option>SA</option><option>WA</option><option>TAS</option>
+                <option>ACT</option><option>NT</option>
+              </select>
+            </div>
+            <div class="field-block">
+              <label>Income band</label>
+              <select class="input" name="income">
+                <option>Prefer not to say</option>
+                <option>&lt; $200k</option>
+                <option selected>$200k – $500k</option>
+                <option>$500k – $1m</option>
+                <option>$1m+</option>
+              </select>
+            </div>
+            <div class="field-block">
+              <label>Phone (optional)</label>
+              <input class="input" type="tel" name="phone" placeholder="04XX XXX XXX">
+            </div>
+          </div>
+
+          <div class="pane-actions">
+            <button class="btn btn-ghost" type="button" data-prev>← Back</button>
+            <span class="step-meta">Step 2 / 3</span>
+            <button class="btn btn-primary" type="button" data-next>Continue <span aria-hidden="true">→</span></button>
+          </div>
+        </fieldset>
+
+        <!-- ── PANE 3 — PLAN ──────────────────────────────── -->
+        <fieldset class="pane" data-pane="3">
+          <div class="field-block">
+            <label>Choose your engagement tier</label>
+            <div class="tile-pick" id="tier-tiles">
+              <button type="button" class="tile" data-tier="standard">
+                <div>
+                  <div class="tile-title">Standard</div>
+                  <div class="tile-sub">Single household, 1 entity, basic super planning.</div>
+                </div>
+                <div class="price">$690<small>/ mo</small></div>
+              </button>
+              <button type="button" class="tile" data-tier="family" data-active="true">
+                <div>
+                  <div class="tile-title">Family <span class="flag" style="margin-left:6px;">popular</span></div>
+                  <div class="tile-sub">Trust + 2 adults, up to 4 properties, education funds.</div>
+                </div>
+                <div class="price">$1,200<small>/ mo</small></div>
+              </button>
+              <button type="button" class="tile" data-tier="bespoke">
+                <div>
+                  <div class="tile-title">Bespoke</div>
+                  <div class="tile-sub">SMSF + operating co. + complex structures. Senior planner.</div>
+                </div>
+                <div class="price">$2,800+<small>/ mo</small></div>
+              </button>
+            </div>
+          </div>
+
+          <div class="field-block">
+            <label>How can we help first? <span class="hint" style="float:right">optional</span></label>
+            <textarea class="input" name="firstHelp" placeholder="One sentence is fine — tax position, property purchase, super, etc."></textarea>
+          </div>
+
+          <div class="check-row">
+            <input type="checkbox" id="tos" checked>
+            <label for="tos" style="margin:0">I accept the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>. I understand my numbers are stored locally in my browser unless I explicitly share them with my planner.</label>
+          </div>
+
+          <div class="pane-actions">
+            <button class="btn btn-ghost" type="button" data-prev>← Back</button>
+            <span class="step-meta">Step 3 / 3</span>
+            <button class="btn btn-primary" type="button" id="reg-submit">Create my portal <span aria-hidden="true">→</span></button>
+          </div>
+        </fieldset>
+
+        <!-- ── PANE 4 — DONE ──────────────────────────────── -->
+        <fieldset class="pane" data-pane="4">
+          <div class="done-state">
+            <div class="check-mark">✓</div>
+            <h2>You're in, <span id="done-name">Lina</span>.</h2>
+            <p>We've sent the household upload template to your email. Fill it out at your pace, then upload it on your dashboard — everything pre-populates.</p>
+            <div class="pane-actions" style="justify-content: center;">
+              <a class="btn btn-primary" href="dashboard.html">Open my dashboard <span aria-hidden="true">→</span></a>
+            </div>
+            <p class="note" style="margin-top: 28px;">A planner will be in touch within 1 business day to schedule your kickoff.</p>
+          </div>
+        </fieldset>
+
+      </form>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · Baobab</title>
+<meta name="ext-resource-dependency" content="assets/baobab-logo-transparent.png" data-resource-id="brandLogo" />
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/tweaks.css">
+<link rel="stylesheet" href="assets/responsive.css">
+<script src="assets/site.js" defer></script>
+<script src="assets/auth.js" defer></script>
+<style>
+  body { background: var(--surface); }
+  .auth-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+  }
+
+  /* ── LHS — editorial side ──────────────────────────────────── */
+  .auth-side {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 56px 64px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .auth-side::before {
+    content: ""; position: absolute; right: -20%; top: -20%;
+    width: 90%; height: 90%;
+    background: radial-gradient(closest-side, color-mix(in oklch, var(--accent) 38%, transparent), transparent 72%);
+    pointer-events: none;
+  }
+  .auth-side .brand { position: relative; z-index: 1; }
+  .auth-side .brand .b1, .auth-side .brand .b2 { color: var(--bg); }
+  .auth-side .brand .brand-mark { background: var(--accent); }
+
+  .auth-side .lhs-content { position: relative; z-index: 1; max-width: 500px; }
+  .auth-side .eyebrow {
+    color: color-mix(in oklch, var(--bg) 60%, transparent);
+    margin-bottom: 28px;
+  }
+  .auth-side .eyebrow::before { background: color-mix(in oklch, var(--bg) 60%, transparent); }
+  .auth-side h2 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--bg);
+    margin: 0;
+  }
+  .auth-side h2 em {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--accent);
+  }
+
+  /* Animated client snapshot card */
+  .client-snap {
+    position: relative; z-index: 1;
+    margin-top: 40px;
+    background: color-mix(in oklch, var(--bg) 8%, transparent);
+    border: 1px solid color-mix(in oklch, var(--bg) 18%, transparent);
+    border-radius: 14px;
+    padding: 22px 24px;
+    max-width: 460px;
+  }
+  .client-snap .head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid color-mix(in oklch, var(--bg) 12%, transparent);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: color-mix(in oklch, var(--bg) 65%, transparent);
+  }
+  .client-snap .head .live {
+    display: inline-flex; gap: 8px; align-items: center;
+    color: color-mix(in oklch, var(--bg) 80%, transparent);
+  }
+  .client-snap .head .live::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: #6CC79A;
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(108,199,154,0.6); }
+    70% { box-shadow: 0 0 0 8px rgba(108,199,154,0); }
+    100% { box-shadow: 0 0 0 0 rgba(108,199,154,0); }
+  }
+  .client-snap .grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  }
+  .client-snap .cell .l {
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: 0.12em;
+    color: color-mix(in oklch, var(--bg) 50%, transparent);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .client-snap .cell .v {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--bg);
+    letter-spacing: -0.02em;
+  }
+  .client-snap .cell .d {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #6CC79A;
+    margin-top: 4px;
+  }
+  .client-snap .cell .d.neg { color: #E87D5A; }
+
+  .auth-side .stats {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    padding-top: 28px;
+    border-top: 1px solid color-mix(in oklch, var(--bg) 15%, transparent);
+  }
+  .auth-side .stats .v {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .auth-side .stats .l {
+    font-size: 11px;
+    color: color-mix(in oklch, var(--bg) 60%, transparent);
+    margin-top: 8px;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── RHS — form side ─────────────────────────────────────── */
+  .auth-main {
+    background: var(--surface);
+    padding: 48px 64px 56px;
+    display: flex; flex-direction: column;
+  }
+  .auth-topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 32px;
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+  .auth-topbar a { color: var(--ink-2); }
+  .auth-topbar a:hover { color: var(--ink); }
+  .auth-topbar .right { display: flex; gap: 16px; align-items: center; }
+  .note { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.04em; }
+
+  .auth-wrap { max-width: 440px; width: 100%; margin: auto 0; }
+  .auth-wrap h1 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: clamp(32px, 3.6vw, 44px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin: 0 0 12px;
+  }
+  .auth-wrap h1 em {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--primary);
+  }
+  .auth-wrap .deck {
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 0 0 32px;
+  }
+
+  .field-block { margin-bottom: 18px; }
+  .field-block label {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-2);
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .field-block .row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 6px;
+  }
+  .field-block .row a {
+    font-size: 12px; color: var(--ink-3);
+  }
+  .field-block .row a:hover { color: var(--primary); }
+
+  .input {
+    width: 100%; height: 48px;
+    background: var(--bg);
+    border: 1px solid var(--hair-c);
+    border-radius: 10px;
+    padding: 0 14px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--ink);
+    transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+  }
+  .input:focus {
+    outline: 0;
+    border-color: var(--ink);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--primary) 18%, transparent);
+  }
+
+  .input-wrap { position: relative; }
+  .input-wrap .toggle-vis {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    background: transparent; border: 0;
+    color: var(--ink-3);
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
+    cursor: pointer;
+  }
+  .input-wrap .toggle-vis:hover { color: var(--ink); }
+
+  .remember-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 8px 0 24px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .remember-row label {
+    display: inline-flex; align-items: center; gap: 8px;
+    cursor: pointer;
+  }
+  .remember-row input {
+    width: 16px; height: 16px;
+    accent-color: var(--ink);
+  }
+
+  .submit-btn {
+    width: 100%; height: 48px;
+    border-radius: 10px;
+    font-size: 14px;
+    background: var(--ink); color: var(--bg);
+    border: 1px solid var(--ink);
+    transition: background 0.18s var(--ease);
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px;
+  }
+  .submit-btn:hover { background: var(--accent); }
+  .submit-btn .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid color-mix(in oklch, var(--bg) 40%, transparent);
+    border-top-color: var(--bg);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .sso-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    margin: 20px 0;
+  }
+  .sso {
+    height: 44px;
+    background: var(--bg);
+    border: 1px solid var(--hair-c);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-size: 13px;
+    color: var(--ink);
+    transition: border-color 0.15s var(--ease);
+  }
+  .sso:hover { border-color: var(--ink-3); }
+  .sso svg { width: 16px; height: 16px; }
+
+  .or {
+    display: flex; align-items: center; gap: 14px;
+    margin: 22px 0;
+    color: var(--ink-3);
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
+  }
+  .or::before, .or::after { content: ""; flex: 1; height: 1px; background: var(--hair-c); }
+
+  .footnote {
+    margin-top: 28px;
+    font-size: 13px; color: var(--ink-3);
+    text-align: center; line-height: 1.55;
+  }
+  .footnote a { color: var(--ink); font-weight: 500; }
+
+  /* MFA hint banner */
+  .mfa-banner {
+    display: flex; gap: 12px; align-items: center;
+    padding: 12px 14px;
+    background: color-mix(in oklch, var(--primary) 8%, var(--surface-2));
+    border: 1px solid color-mix(in oklch, var(--primary) 25%, var(--hair-c));
+    border-radius: 10px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: var(--ink-2);
+    line-height: 1.45;
+  }
+  .mfa-banner .lock {
+    width: 28px; height: 28px;
+    background: color-mix(in oklch, var(--primary) 25%, var(--surface));
+    color: var(--primary);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+
+  @media (max-width: 980px) {
+    .auth-shell { grid-template-columns: 1fr; }
+    .auth-side { display: none; }
+    .auth-main { padding: 28px 24px 48px; }
+  }
+  .mfa-banner code { font-family: var(--font-mono); font-size: 11px; background: var(--surface-2); border: 1px solid var(--hair-c); padding: 1px 5px; border-radius: 4px; color: var(--ink); white-space: nowrap; }
+  .login-error { background: color-mix(in oklch, var(--neg) 12%, var(--surface)); border: 1px solid color-mix(in oklch, var(--neg) 40%, var(--hair-c)); color: var(--neg); border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 16px; }
+  .login-error[hidden] { display: none; }
+</style>
+</head>
+<body>
+
+<div class="auth-shell">
+
+  <!-- ── LEFT EDITORIAL SIDE ───────────────────────────────────── -->
+  <aside class="auth-side">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-text">
+        <span class="b1">Baobab</span>
+        <span class="b2">Consulting</span>
+      </span>
+    </div>
+
+    <div class="lhs-content">
+      <div class="eyebrow">Client portal</div>
+      <h2>Welcome back.<br>Your <em>plan</em> is waiting.</h2>
+
+      <!-- Snapshot of last open state -->
+      <div class="client-snap">
+        <div class="head">
+          <span>Jones Family · last open Apr 28</span>
+          <span class="live">live</span>
+        </div>
+        <div class="grid">
+          <div class="cell">
+            <div class="l">Net worth</div>
+            <div class="v">$2.84m</div>
+            <div class="d">+1.7% QoQ</div>
+          </div>
+          <div class="cell">
+            <div class="l">Savings rate</div>
+            <div class="v">23.4%</div>
+            <div class="d">+1.8 pp</div>
+          </div>
+          <div class="cell">
+            <div class="l">Tax due (est.)</div>
+            <div class="v">$54.2k</div>
+            <div class="d">on track</div>
+          </div>
+          <div class="cell">
+            <div class="l">Next review</div>
+            <div class="v" style="font-family: var(--font-sans); font-size: 18px; letter-spacing: -0.01em;">14 Jul · 10:00</div>
+            <div class="d">with K. Mhishi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div><div class="v">187</div><div class="l">Active households</div></div>
+      <div><div class="v">12</div><div class="l">Schedules per family</div></div>
+      <div><div class="v">4×</div><div class="l">Reviews / yr</div></div>
+    </div>
+  </aside>
+
+  <!-- ── RIGHT FORM SIDE ───────────────────────────────────────── -->
+  <main class="auth-main">
+
+    <div class="auth-topbar">
+      <a href="index.html">← back to baobab.com.au</a>
+      <div class="right">
+        <span class="note">new here?</span>
+        <a href="register.html" class="btn btn-secondary btn-sm">Create account</a>
+      </div>
+    </div>
+
+    <div class="auth-wrap">
+      <h1>Sign in.</h1>
+      <p class="deck">Welcome back, Lina. Your numbers persist between visits — pick up exactly where you left off.</p>
+
+      <div class="mfa-banner">
+        <span class="lock">🔒</span>
+        <span><strong>Demo credentials.</strong> Client: <code>lina@jonesfamilytrust.com.au</code> · Admin: <code>admin@kudz.com.au</code> — any password works.</span>
+      </div>
+
+      <form id="login-form">
+        <div class="field-block">
+          <label>Email address</label>
+          <input class="input" type="email" value="lina@jonesfamilytrust.com.au" autocomplete="email">
+        </div>
+
+        <div class="field-block">
+          <div class="row">
+            <label style="margin: 0;">Password</label>
+            <a href="#">Forgotten?</a>
+          </div>
+          <div class="input-wrap">
+            <input class="input" type="password" id="pw" placeholder="Enter any password" autocomplete="current-password" style="padding-right: 60px;">
+            <button type="button" class="toggle-vis" id="toggle-pw">SHOW</button>
+          </div>
+        </div>
+
+        <div id="login-error" class="login-error" hidden></div>
+
+        <div class="remember-row">
+          <label><input type="checkbox" checked> Remember this device for 30 days</label>
+        </div>
+
+        <button type="submit" class="submit-btn">Continue <span aria-hidden="true">→</span></button>
+      </form>
+
+      <div class="or">or</div>
+
+      <div class="sso-row">
+        <button class="sso">
+          <svg viewBox="0 0 24 24" fill="none"><path fill="#4285F4" d="M22.5 12.27c0-.79-.07-1.55-.21-2.27H12v4.3h5.92c-.26 1.36-1.04 2.51-2.21 3.28v2.72h3.57c2.09-1.93 3.22-4.77 3.22-8.03z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.99 7.28-2.69l-3.57-2.72c-.99.66-2.25 1.06-3.71 1.06-2.85 0-5.27-1.93-6.13-4.52H2.18v2.84C3.99 20.5 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.87 14.13c-.22-.66-.34-1.36-.34-2.13s.12-1.47.34-2.13V7.03H2.18C1.43 8.53 1 10.22 1 12s.43 3.47 1.18 4.97l3.69-2.84z"/><path fill="#EA4335" d="M12 5.62c1.62 0 3.07.56 4.21 1.65l3.15-3.15C17.45 2.32 14.97 1.27 12 1.27 7.7 1.27 3.99 3.5 2.18 7.03l3.69 2.84c.86-2.59 3.28-4.25 6.13-4.25z"/></svg>
+          Continue with Google
+        </button>
+        <button class="sso">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 12.65c-.04-2.7 2.2-3.99 2.3-4.06-1.26-1.83-3.21-2.08-3.91-2.11-1.67-.17-3.25.97-4.1.97-.86 0-2.15-.95-3.54-.92-1.82.03-3.5 1.06-4.43 2.69-1.9 3.3-.49 8.16 1.36 10.83.9 1.31 1.98 2.78 3.4 2.72 1.36-.05 1.88-.88 3.53-.88 1.64 0 2.11.88 3.55.85 1.47-.02 2.4-1.33 3.3-2.65 1.04-1.52 1.47-3 1.49-3.07-.03-.02-2.85-1.1-2.88-4.36z"/></svg>
+          Continue with Apple
+        </button>
+      </div>
+
+      <p class="footnote">
+        Don't have an account yet? <a href="register.html">Create one →</a>
+      </p>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Show/hide password toggle
+  const tog = document.getElementById('toggle-pw');
+  const pw = document.getElementById('pw');
+  if (tog && pw) {
+    tog.addEventListener('click', () => {
+      const shown = pw.type === 'text';
+      pw.type = shown ? 'password' : 'text';
+      tog.textContent = shown ? 'SHOW' : 'HIDE';
+    });
+  }
+</script>
+<template id="__bundler_thumbnail" data-bg-color="#0f3d2e">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0f3d2e"/>
+    <circle cx="600" cy="330" r="120" fill="none" stroke="#d8a657" stroke-width="14"/>
+    <path d="M600 250 L600 410 M540 300 Q600 340 660 300 M540 360 Q600 400 660 360" stroke="#d8a657" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <text x="600" y="560" text-anchor="middle" font-family="Georgia, serif" font-size="78" fill="#f5f1e8" letter-spacing="4">Kudz</text>
+    <text x="600" y="610" text-anchor="middle" font-family="monospace" font-size="24" fill="#9db8a6" letter-spacing="6">SIGN IN</text>
+  </svg>
+</template>
+</body>
+</html>

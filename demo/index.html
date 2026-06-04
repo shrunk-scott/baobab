@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baobab Consulting — Household financial planning, modelled in the open</title>
+<meta name="description" content="A modern household CFO for Australian families. Tax, cashflow, debt and super — twelve linked schedules in one continuously-recalculated workbook.">
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/tweaks.css">
+<link rel="stylesheet" href="assets/responsive.css">
+<script src="assets/site.js" defer></script>
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js" defer></script>
+<script src="assets/horizon.js" defer></script>
+<script src="assets/home-v2.js" defer></script>
+<script src="assets/home-v2-extras.js" defer></script>
+<style>
+  /* ── STATUS STRIP (marquee) ──────────────────────────────────────── */
+  .v2-status {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--ink); color: var(--bg);
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
+    height: 32px; display: flex; align-items: center; overflow: hidden;
+    border-bottom: 1px solid var(--ink);
+  }
+  .v2-status .strip { display: flex; animation: v2-marquee 60s linear infinite; white-space: nowrap; }
+  .v2-status .item {
+    padding: 0 28px;
+    border-right: 1px solid color-mix(in oklch, var(--bg) 18%, transparent);
+    display: inline-flex; align-items: center; gap: 10px;
+    flex: 0 0 auto;
+  }
+  .v2-status .k { color: color-mix(in oklch, var(--bg) 55%, transparent); }
+  .v2-status .v { color: var(--bg); }
+  .v2-status .pos { color: #6CC79A; }
+  .v2-status .neg { color: #E87D5A; }
+  .v2-status .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #6CC79A;
+    animation: v2-pulse 2s var(--ease) infinite;
+  }
+  @keyframes v2-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(108,199,154,0.6); }
+    70% { box-shadow: 0 0 0 8px rgba(108,199,154,0); }
+    100% { box-shadow: 0 0 0 0 rgba(108,199,154,0); }
+  }
+  @keyframes v2-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Right-edge scroll progress */
+  .v2-scrollbar { position: fixed; top: 32px; right: 0; bottom: 0; width: 2px; z-index: 40; pointer-events: none; }
+  .v2-scrollbar > .fill { width: 100%; height: 0%; background: var(--accent); transition: height 0.05s linear; }
+
+  /* ── HERO ────────────────────────────────────────────────────────── */
+  .v2-hero { padding: 56px 0 0; border-bottom: 1px solid var(--hair-c); }
+  .v2-hero-grid {
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px;
+    align-items: center; padding-bottom: 48px;
+  }
+  .v2-hero h1 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: clamp(40px, 5.4vw, 82px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .v2-hero h1 .it {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    color: var(--accent); letter-spacing: -0.02em;
+  }
+  .v2-hero h1 .stop { color: var(--accent); }
+  .v2-hero .deck {
+    margin-top: 28px; color: var(--ink-2); font-size: 17px; line-height: 1.5;
+    max-width: 480px;
+  }
+  .v2-hero .cta-row { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+
+  /* Live readout */
+  .v2-readout {
+    border: 1px solid var(--hair-c); border-radius: 14px;
+    background-color: var(--hair-c);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; overflow: hidden;
+  }
+  .v2-readout > div { background: var(--surface); padding: 22px; }
+  .v2-readout .head {
+    grid-column: 1 / -1;
+    padding: 16px 22px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .v2-readout .head .live { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); }
+  .v2-readout .head .live::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: #6CC79A;
+    animation: v2-pulse 2s var(--ease) infinite;
+  }
+  .v2-cell .l { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-3); margin-bottom: 8px; }
+  .v2-cell .v { font-family: var(--font-mono); font-size: 38px; font-weight: 500; letter-spacing: -0.025em; line-height: 1; color: var(--ink); }
+  .v2-cell .v sup { font-size: 14px; color: var(--ink-3); margin-left: 2px; vertical-align: top; line-height: 1; }
+  .v2-cell .d { margin-top: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--pos); display: inline-flex; align-items: center; gap: 6px; }
+  .v2-cell .d.neg { color: var(--neg); }
+  .v2-cell .spark { margin-top: 12px; height: 32px; width: 100%; }
+
+  /* ── HORIZON (full-bleed three.js) ─────────────────────────────── */
+  .v2-horizon {
+    position: relative; height: clamp(380px, 46vw, 520px);
+    overflow: hidden; border-bottom: 1px solid var(--hair-c);
+    background: var(--bg);
+  }
+  .v2-horizon canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .v2-horizon .overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 36px clamp(24px, 4vw, 64px);
+    pointer-events: none;
+  }
+  .v2-horizon .overlay-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .v2-horizon .overlay-bot { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; }
+  .v2-horizon .caption {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: clamp(28px, 3vw, 44px); line-height: 1.05;
+    color: var(--ink); max-width: 520px; letter-spacing: -0.01em;
+  }
+  .v2-horizon .legend {
+    font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+    letter-spacing: 0.04em; text-align: right; line-height: 1.7;
+  }
+
+  /* ── BENTO ──────────────────────────────────────────────────────── */
+  .v2-bento-section { padding: 96px 0; border-bottom: 1px solid var(--hair-c); }
+  .v2-section-head {
+    display: flex; justify-content: space-between; align-items: end;
+    gap: 32px; margin-bottom: 48px; flex-wrap: wrap;
+  }
+  .v2-section-head .marker {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink-3);
+  }
+  .v2-section-head h2 {
+    font-family: var(--font-sans); font-weight: 500;
+    font-size: clamp(36px, 4.4vw, 64px); line-height: 0.98;
+    letter-spacing: -0.025em; color: var(--ink); max-width: 760px;
+  }
+  .v2-section-head h2 em {
+    font-family: var(--font-serif); font-style: italic; color: var(--ink-3); font-weight: 400;
+  }
+
+  .v2-bento { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 200px; gap: 14px; }
+  .v2-card {
+    background: var(--surface); border: 1px solid var(--hair-c);
+    border-radius: 16px; padding: 22px 24px; position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
+  }
+  .v2-card:hover { border-color: color-mix(in oklch, var(--accent) 50%, var(--hair-c)); }
+  .v2-card .num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+  .v2-card h3 { font-family: var(--font-sans); font-weight: 500; font-size: 22px; line-height: 1.15; margin: auto 0 6px; color: var(--ink); letter-spacing: -0.01em; }
+  .v2-card p { margin: 0; color: var(--ink-2); font-size: 13px; line-height: 1.5; }
+  .v2-card .arrow {
+    position: absolute; right: 22px; top: 22px;
+    width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--hair-c);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .v2-card:hover .arrow { transform: translate(2px, -2px); border-color: var(--accent); }
+
+  .span-2 { grid-column: span 2; }  .span-3 { grid-column: span 3; }
+  .span-4 { grid-column: span 4; }  .span-6 { grid-column: span 6; }
+  .row-2  { grid-row: span 2; }
+
+  .v2-card.invert { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .v2-card.invert .num { color: color-mix(in oklch, var(--bg) 55%, transparent); }
+  .v2-card.invert h3 { color: var(--bg); }
+  .v2-card.invert p { color: color-mix(in oklch, var(--bg) 75%, transparent); }
+  .v2-card.invert .arrow { border-color: color-mix(in oklch, var(--bg) 25%, transparent); }
+  .v2-card.invert .arrow svg { stroke: var(--bg); }
+
+  .v2-bignum { display: flex; flex-direction: column; justify-content: space-between; }
+  .v2-bignum .figure { font-family: var(--font-mono); font-weight: 500; font-size: clamp(64px, 6vw, 110px); line-height: 0.92; letter-spacing: -0.04em; color: var(--ink); }
+  .v2-bignum .figure .unit { font-size: 0.4em; color: var(--ink-3); margin-left: 4px; }
+  .v2-bignum .label-row { display: flex; justify-content: space-between; align-items: end; color: var(--ink-3); }
+
+  .v2-spark { grid-column: span 3; grid-row: span 2; background: var(--surface-2); }
+  .v2-spark .grid { margin-top: auto; width: 100%; height: 60%; }
+
+  .v2-quote { grid-column: span 4; grid-row: span 2; background: var(--surface); padding: 32px; display: flex; flex-direction: column; justify-content: space-between; }
+  .v2-quote blockquote { margin: 0; font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.2; color: var(--ink); letter-spacing: -0.01em; }
+  .v2-quote .src { margin-top: 24px; display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.04em; }
+  .v2-quote .avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); }
+
+  /* ── LIVE RECALC ────────────────────────────────────────────────── */
+  .v2-recalc { padding: 96px 0; border-bottom: 1px solid var(--hair-c); background: var(--surface-2); }
+  .v2-recalc-grid { display: grid; grid-template-columns: 380px 1fr; gap: 56px; align-items: stretch; }
+  .v2-recalc-controls { display: flex; flex-direction: column; gap: 24px; }
+  .v2-knob { background: var(--surface); border: 1px solid var(--hair-c); border-radius: 14px; padding: 20px; }
+  .v2-knob-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+  .v2-knob-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+  .v2-knob-value { font-family: var(--font-mono); font-size: 22px; font-weight: 500; letter-spacing: -0.02em; color: var(--ink); }
+  .v2-knob input[type="range"] { width: 100%; -webkit-appearance: none; appearance: none; background: transparent; height: 24px; }
+  .v2-knob input[type="range"]::-webkit-slider-runnable-track { height: 2px; background: var(--hair-c); }
+  .v2-knob input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--ink); border: 3px solid var(--bg); margin-top: -8px; cursor: grab; box-shadow: 0 0 0 1px var(--ink); }
+  .v2-knob input[type="range"]::-moz-range-track { height: 2px; background: var(--hair-c); }
+  .v2-knob input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--ink); border: 3px solid var(--bg); cursor: grab; }
+  .v2-knob .ticks { display: flex; justify-content: space-between; margin-top: 6px; font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); }
+
+  .v2-recalc-chart { background: var(--surface); border: 1px solid var(--hair-c); border-radius: 14px; padding: 24px 28px 20px; display: flex; flex-direction: column; }
+  .v2-recalc-chart .head { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 16px; border-bottom: 1px solid var(--hair-2); margin-bottom: 18px; }
+  .v2-recalc-chart .ttl { font-family: var(--font-sans); font-size: 16px; font-weight: 500; color: var(--ink); }
+  .v2-recalc-chart .now { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); display: inline-flex; align-items: center; gap: 8px; }
+  .v2-recalc-chart .now::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #6CC79A; animation: v2-pulse 2s var(--ease) infinite; }
+  .v2-chart-svg { flex: 1; width: 100%; min-height: 280px; }
+  .v2-chart-foot { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); margin-top: 12px; letter-spacing: 0.04em; }
+  .v2-chart-foot strong { color: var(--ink); font-weight: 500; }
+
+  /* ── CONSTELLATION ──────────────────────────────────────────────── */
+  .v2-constellation { position: relative; padding: 96px 0 112px; border-bottom: 1px solid var(--hair-c); overflow: hidden; background: var(--bg); }
+  .v2-constellation .grid-wrap { display: grid; grid-template-columns: 1fr 1.05fr; gap: 56px; align-items: center; }
+  .v2-constellation .copy { max-width: 520px; }
+  .v2-constellation .copy h2 { font-family: var(--font-sans); font-weight: 500; font-size: clamp(36px, 4vw, 56px); line-height: 1.0; letter-spacing: -0.025em; margin: 16px 0 22px; }
+  .v2-constellation .copy h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--accent); }
+  .v2-constellation .copy p { color: var(--ink-2); font-size: 16px; line-height: 1.55; max-width: 460px; }
+  .v2-constellation .schedule-list { list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; }
+  .v2-constellation .schedule-list li { display: flex; align-items: baseline; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--hair-2); font-size: 13px; color: var(--ink-2); }
+  .v2-constellation .schedule-list li .n { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); letter-spacing: 0.06em; }
+  .v2-constellation .canvas-wrap {
+    position: relative; height: clamp(380px, 50vw, 540px);
+    border-radius: 20px; overflow: hidden;
+    background: radial-gradient(circle at 30% 30%, color-mix(in oklch, var(--accent) 14%, transparent), transparent 60%), var(--surface);
+    border: 1px solid var(--hair-c);
+  }
+  .v2-constellation .canvas-wrap canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .v2-constellation .canvas-wrap .overlay-meta {
+    position: absolute; left: 24px; top: 22px; display: flex; gap: 18px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-3);
+  }
+  .v2-constellation .canvas-wrap .overlay-meta .live { color: var(--ink-2); display: inline-flex; gap: 8px; align-items: center; }
+  .v2-constellation .canvas-wrap .overlay-meta .live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #6CC79A; animation: v2-pulse 2s var(--ease) infinite; }
+  .v2-constellation .canvas-wrap .overlay-bot {
+    position: absolute; right: 24px; bottom: 22px; text-align: right;
+    font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+    line-height: 1.6; letter-spacing: 0.04em;
+  }
+
+  /* ── METHODOLOGY RAIL ───────────────────────────────────────────── */
+  .v2-method { padding: 96px 0 112px; border-bottom: 1px solid var(--hair-c); overflow: hidden; }
+  .v2-rail { display: grid; grid-auto-flow: column; grid-auto-columns: 320px; gap: 14px; overflow-x: auto; padding-bottom: 24px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .v2-rail::-webkit-scrollbar { height: 4px; }
+  .v2-rail::-webkit-scrollbar-thumb { background: var(--hair-c); border-radius: 2px; }
+  .v2-step { scroll-snap-align: start; background: var(--surface); border: 1px solid var(--hair-c); border-radius: 14px; padding: 24px; display: flex; flex-direction: column; min-height: 260px; position: relative; }
+  .v2-step .ord { font-family: var(--font-mono); font-size: 38px; font-weight: 500; letter-spacing: -0.02em; color: var(--accent); line-height: 1; }
+  .v2-step .ord small { font-size: 12px; color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+  .v2-step h4 { margin: 28px 0 8px; font-family: var(--font-sans); font-weight: 500; font-size: 19px; line-height: 1.2; color: var(--ink); letter-spacing: -0.01em; }
+  .v2-step p { margin: 0; color: var(--ink-2); font-size: 13px; line-height: 1.55; }
+  .v2-step .meta { margin-top: auto; font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); padding-top: 16px; border-top: 1px dashed var(--hair-2); letter-spacing: 0.04em; }
+
+  /* ── BIG CTA ────────────────────────────────────────────────────── */
+  .v2-cta-section { padding: 96px 0; }
+  .v2-cta { background: var(--ink); color: var(--bg); border-radius: 24px; padding: clamp(48px, 6vw, 96px); position: relative; overflow: hidden; }
+  .v2-cta::before { content: ""; position: absolute; right: -10%; top: -50%; width: 700px; height: 700px; background: radial-gradient(closest-side, color-mix(in oklch, var(--accent) 38%, transparent), transparent 70%); pointer-events: none; }
+  .v2-cta-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: end; position: relative; }
+  .v2-cta h2 { font-family: var(--font-sans); font-weight: 500; font-size: clamp(40px, 5.5vw, 80px); line-height: 0.96; letter-spacing: -0.03em; color: var(--bg); margin: 0; max-width: 720px; }
+  .v2-cta h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--accent); }
+  .v2-cta p { color: color-mix(in oklch, var(--bg) 75%, transparent); font-size: 16px; line-height: 1.5; margin: 0 0 24px; max-width: 380px; }
+  .v2-cta .cta-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .v2-cta .btn-primary { background: var(--bg); color: var(--ink); border-color: var(--bg); }
+  .v2-cta .btn-primary:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .v2-cta .btn-ghost { background: transparent; color: var(--bg); border-color: color-mix(in oklch, var(--bg) 30%, transparent); }
+  .v2-cta .btn-ghost:hover { border-color: var(--bg); }
+
+  /* Reveals + micro-animation */
+  [data-reveal] {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    transition-delay: var(--reveal-delay, 0s);
+    will-change: opacity, transform;
+  }
+  [data-reveal].is-in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
+  [data-tilt] { transition: transform 0.18s var(--ease), border-color 0.2s var(--ease), box-shadow 0.2s var(--ease); transform-style: preserve-3d; will-change: transform; }
+  [data-tilt]:hover { box-shadow: 0 14px 30px -16px color-mix(in oklch, var(--ink) 30%, transparent); }
+  #rot-word { display: inline-block; min-width: 4.2ch; }
+  @keyframes rot-in { from { opacity: 0; transform: translateY(0.4em); filter: blur(2px); } to { opacity: 1; transform: none; filter: none; } }
+
+  /* Responsive */
+  @media (max-width: 980px) {
+    .v2-hero-grid { grid-template-columns: 1fr; gap: 40px; padding-bottom: 40px; }
+    .v2-bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+    .span-3, .span-4, .v2-quote, .v2-spark { grid-column: span 2; }
+    .span-6 { grid-column: span 2; }
+    .v2-recalc-grid { grid-template-columns: 1fr; }
+    .v2-cta-grid { grid-template-columns: 1fr; }
+    .v2-constellation .grid-wrap { grid-template-columns: 1fr; gap: 32px; }
+    .v2-constellation .schedule-list { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="v2-status" aria-hidden="true"><div class="strip" id="v2-ticker"></div></div>
+<div class="v2-scrollbar" aria-hidden="true"><div class="fill" id="v2-progress"></div></div>
+
+<div id="site-nav"></div>
+
+<section class="v2-hero">
+  <div class="container-wide">
+    <div class="v2-hero-grid">
+      <div data-reveal>
+        <div class="eyebrow" style="margin-bottom: 28px;">Household CFO · FY 2025–26</div>
+        <h1>
+          Your family<br>
+          balance sheet,<br>
+          <span class="it" id="rot-word" data-words='["modelled","forecast","compounded","stress-tested"]'>modelled</span> in<br>
+          the open<span class="stop">.</span>
+        </h1>
+        <p class="deck">A modern household CFO for Australian families. Tax, cashflow, debt and super — twelve linked schedules in one continuously-recalculated workbook, delivered as your private portal.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="dashboard.html">Open the dashboard <span aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="methodology.html">See the method</a>
+        </div>
+      </div>
+
+      <div class="v2-readout" aria-label="Live engagement readout" data-reveal style="--reveal-delay: 0.2s">
+        <div class="head">
+          <span>Engagement · JONES FAMILY</span>
+          <span class="live">live</span>
+        </div>
+        <div class="v2-cell">
+          <div class="l">Net worth</div>
+          <div class="v" data-count data-target="2840000" data-prefix="$" data-format="abbr">$0</div>
+          <div class="d">▲ +1.7% QoQ</div>
+          <svg class="spark" viewBox="0 0 100 32" preserveAspectRatio="none">
+            <polyline fill="none" stroke="currentColor" stroke-width="1.4" style="color: var(--ink-2)"
+              points="0,28 10,26 20,22 30,24 40,20 50,18 60,12 70,14 80,9 90,7 100,4"/>
+          </svg>
+        </div>
+        <div class="v2-cell">
+          <div class="l">Savings rate</div>
+          <div class="v"><span data-count data-target="23.4" data-decimals="1">0</span><sup>%</sup></div>
+          <div class="d">▲ +1.8 pp</div>
+          <svg class="spark" viewBox="0 0 100 32" preserveAspectRatio="none">
+            <polyline fill="none" stroke="currentColor" stroke-width="1.4" style="color: var(--ink-2)"
+              points="0,22 10,24 20,18 30,20 40,16 50,14 60,18 70,12 80,10 90,8 100,6"/>
+          </svg>
+        </div>
+        <div class="v2-cell">
+          <div class="l">Tax due (est.)</div>
+          <div class="v"><span data-count data-target="54.2" data-decimals="1" data-prefix="$">$0</span><sup>k</sup></div>
+          <div class="d">on track</div>
+          <svg class="spark" viewBox="0 0 100 32" preserveAspectRatio="none">
+            <polyline fill="none" stroke="currentColor" stroke-width="1.4" style="color: var(--ink-2)"
+              points="0,12 10,14 20,16 30,12 40,14 50,18 60,16 70,14 80,12 90,10 100,9"/>
+          </svg>
+        </div>
+        <div class="v2-cell">
+          <div class="l">Debt service</div>
+          <div class="v"><span data-count data-target="28.1" data-decimals="1">0</span><sup>%</sup></div>
+          <div class="d neg">▲ +0.6 pp</div>
+          <svg class="spark" viewBox="0 0 100 32" preserveAspectRatio="none">
+            <polyline fill="none" stroke="currentColor" stroke-width="1.4" style="color: var(--ink-2)"
+              points="0,16 10,15 20,18 30,16 40,20 50,18 60,22 70,20 80,24 90,22 100,26"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="v2-horizon" aria-label="Modeled outlook">
+  <canvas id="horizon-canvas" aria-hidden="true"></canvas>
+  <div class="overlay">
+    <div class="overlay-top">
+      <span>02 · MODELED OUTLOOK</span>
+      <span>FY26 → FY40 · 14 YR PROJECTION</span>
+    </div>
+    <div class="overlay-bot">
+      <div class="caption">Every assumption folds into one continuously-modelled surface.</div>
+      <div class="legend">
+        <div>● accent &nbsp;sampled data</div>
+        <div>─ ink &nbsp;projected mesh</div>
+        <div>recalc · live</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="v2-bento-section">
+  <div class="container-wide">
+    <div class="v2-section-head" data-reveal>
+      <div><div class="marker">03 · WHAT WE MODEL</div></div>
+      <h2>Four pillars, <em>one workbook</em>. The balance sheet stops fitting on one screen — we built it anyway.</h2>
+    </div>
+
+    <div class="v2-bento" data-reveal>
+      <div class="v2-card invert span-2 row-2" data-tilt>
+        <span class="num">01 / Income</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke-width="1.6"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></span>
+        <h3>Salary, equity, distributions, capital gains — modelled per-entity, per-year.</h3>
+        <p>Including PAYG, novated lease, ESOP / ESS timing, trust distributions and side-business P&amp;L.</p>
+      </div>
+      <div class="v2-card span-2" data-tilt>
+        <span class="num">02 / Tax</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></span>
+        <h3>FY26 ATO rates — projected, reconciled.</h3>
+        <p>Bracket creep, Div 293, Medicare, HELP, franking — all live.</p>
+      </div>
+      <div class="v2-card v2-bignum span-2" data-tilt>
+        <span class="num">Median identified</span>
+        <div class="figure">$54<span class="unit">k</span></div>
+        <div class="label-row">
+          <span class="num">FY25 family avg.</span>
+          <span class="num" style="color: var(--pos)">▲ +12% YoY</span>
+        </div>
+      </div>
+      <div class="v2-card v2-spark" data-tilt>
+        <span class="num">04 / Net worth · 5-yr forecast</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></span>
+        <svg class="grid" viewBox="0 0 400 140" preserveAspectRatio="none">
+          <defs><linearGradient id="sparkfill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="var(--accent)" stop-opacity="0.25"/><stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>
+          <line x1="0" y1="35" x2="400" y2="35" stroke="var(--hair-2)" stroke-dasharray="2 4"/>
+          <line x1="0" y1="70" x2="400" y2="70" stroke="var(--hair-2)" stroke-dasharray="2 4"/>
+          <line x1="0" y1="105" x2="400" y2="105" stroke="var(--hair-2)" stroke-dasharray="2 4"/>
+          <path d="M0,110 L40,108 L80,100 L120,96 L160,84 L200,78 L240,62 L280,58 L320,42 L360,30 L400,18" fill="none" stroke="var(--accent)" stroke-width="2"/>
+          <path d="M0,110 L40,108 L80,100 L120,96 L160,84 L200,78 L240,62 L280,58 L320,42 L360,30 L400,18 L400,140 L0,140 Z" fill="url(#sparkfill)"/>
+        </svg>
+      </div>
+      <div class="v2-card span-3" data-tilt>
+        <span class="num">03 / Debt &amp; cashflow</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></span>
+        <h3>Mortgage, offset, redraw — paydown plotted to year.</h3>
+        <p>Variable / fixed splits, refinance scenarios and offset-vs-invest comparisons sit on the same axis.</p>
+      </div>
+      <div class="v2-card v2-quote" data-tilt>
+        <span class="num">From a client</span>
+        <blockquote>"It's the first time we've seen the whole picture in one place — without exporting to a spreadsheet."</blockquote>
+        <div class="src"><span class="avatar"></span><span>L. Jones · Sydney · client since FY24</span></div>
+      </div>
+      <div class="v2-card span-2" data-tilt>
+        <span class="num">05 / Super</span>
+        <span class="arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></span>
+        <h3>SG, salary sacrifice, Div 293 modelled to 67.</h3>
+        <p>Concessional caps, carry-forward and spouse splits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="v2-recalc">
+  <div class="container-wide">
+    <div class="v2-section-head" data-reveal>
+      <div><div class="marker">04 · LIVE RECALC</div></div>
+      <h2>Move a slider. <em>Watch the model breathe.</em></h2>
+    </div>
+
+    <div class="v2-recalc-grid" data-reveal style="--reveal-delay: 0.1s">
+      <div class="v2-recalc-controls">
+        <div class="v2-knob">
+          <div class="v2-knob-head"><span class="v2-knob-label">Household income</span><span class="v2-knob-value" id="knob-income-v">$420k</span></div>
+          <input type="range" id="knob-income" min="180" max="800" step="10" value="420">
+          <div class="ticks"><span>$180k</span><span>$500k</span><span>$800k</span></div>
+        </div>
+        <div class="v2-knob">
+          <div class="v2-knob-head"><span class="v2-knob-label">Mortgage rate</span><span class="v2-knob-value" id="knob-rate-v">5.85%</span></div>
+          <input type="range" id="knob-rate" min="3" max="9" step="0.05" value="5.85">
+          <div class="ticks"><span>3.0%</span><span>6.0%</span><span>9.0%</span></div>
+        </div>
+        <div class="v2-knob">
+          <div class="v2-knob-head"><span class="v2-knob-label">Savings rate</span><span class="v2-knob-value" id="knob-save-v">22%</span></div>
+          <input type="range" id="knob-save" min="0" max="50" step="1" value="22">
+          <div class="ticks"><span>0%</span><span>25%</span><span>50%</span></div>
+        </div>
+      </div>
+
+      <div class="v2-recalc-chart">
+        <div class="head"><span class="ttl">Net worth · 15-year projection</span><span class="now">recalc · live</span></div>
+        <svg class="v2-chart-svg" id="recalc-svg" viewBox="0 0 800 320" preserveAspectRatio="none"></svg>
+        <div class="v2-chart-foot">
+          <span><span class="muted">FY26 start ·</span> <strong id="rc-start">$2.84m</strong></span>
+          <span><span class="muted">FY40 end ·</span> <strong id="rc-end">$8.92m</strong></span>
+          <span><span class="muted">CAGR ·</span> <strong id="rc-cagr">8.4%</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="v2-constellation" aria-label="Schedule constellation">
+  <div class="container-wide">
+    <div class="grid-wrap">
+      <div class="copy" data-reveal>
+        <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3);">04A · TWELVE SCHEDULES</div>
+        <h2>A connected balance sheet,<br><em>not twelve apps.</em></h2>
+        <p>The twelve schedules in your portal are linked — change a trust distribution and your tax, cashflow, and net-worth projections all move together. Drag the constellation to inspect any node.</p>
+        <ul class="schedule-list">
+          <li><span class="n">01</span> Assumptions</li>
+          <li><span class="n">02</span> Dashboard</li>
+          <li><span class="n">03</span> Income</li>
+          <li><span class="n">04</span> Tax estimator</li>
+          <li><span class="n">05</span> Expenditure</li>
+          <li><span class="n">06</span> Monthly cashflow</li>
+          <li><span class="n">07</span> Debt schedule</li>
+          <li><span class="n">08</span> Rental properties</li>
+          <li><span class="n">09</span> Goals &amp; super</li>
+          <li><span class="n">10</span> Summary</li>
+          <li><span class="n">11</span> Assets &amp; liabilities</li>
+          <li><span class="n">12</span> Terms of use</li>
+        </ul>
+      </div>
+
+      <div class="canvas-wrap" data-reveal style="--reveal-delay: 0.15s">
+        <canvas id="constellation-canvas" aria-hidden="true"></canvas>
+        <div class="overlay-meta"><span>schedule.graph</span><span class="live">recalc · live</span></div>
+        <div class="overlay-bot"><div>12 nodes · 18 edges</div><div>drag &amp; hover</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="v2-method">
+  <div class="container-wide">
+    <div class="v2-section-head" data-reveal>
+      <div><div class="marker">05 · HOW IT WORKS</div></div>
+      <h2>Six weeks from intake to <em>your portal</em>.</h2>
+    </div>
+    <div class="v2-rail">
+      <div class="v2-step"><div class="ord"><small>Week 01</small>01</div><h4>Intake</h4><p>30-minute discovery, secure document drop, household-entity map.</p><div class="meta">→ confidentiality · NDA · advisor pairing</div></div>
+      <div class="v2-step"><div class="ord"><small>Week 02</small>02</div><h4>Reconcile</h4><p>We rebuild your last-three-FY balance sheet from primary docs — no ledger gaps.</p><div class="meta">→ trust · co. · personal · super</div></div>
+      <div class="v2-step"><div class="ord"><small>Week 03</small>03</div><h4>Model</h4><p>Twelve linked schedules wire up. Your real numbers feed each pillar.</p><div class="meta">→ income · tax · debt · super</div></div>
+      <div class="v2-step"><div class="ord"><small>Week 04</small>04</div><h4>Stress-test</h4><p>Rate shocks, redundancy, divorce, market drawdown — modelled.</p><div class="meta">→ ±200bps · 12 mo · 36 mo</div></div>
+      <div class="v2-step"><div class="ord"><small>Week 05</small>05</div><h4>Review</h4><p>Two-hour walkthrough with your dedicated planner. Decisions logged.</p><div class="meta">→ video + transcript · action register</div></div>
+      <div class="v2-step"><div class="ord"><small>Week 06</small>06</div><h4>Portal</h4><p>You get this — your numbers, live, with quarterly reviews scheduled.</p><div class="meta">→ private · mobile · 4× / yr</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="v2-cta-section">
+  <div class="container-wide">
+    <div class="v2-cta" data-reveal>
+      <div class="v2-cta-grid">
+        <h2>The household CFO <em>your spreadsheet wants to be.</em></h2>
+        <div>
+          <p>Twelve linked schedules. Quarterly reviews. Your planner on a first-name basis.</p>
+          <div class="cta-btns">
+            <a class="btn btn-primary" href="contact.html">Book a 30-min call</a>
+            <a class="btn btn-ghost" href="dashboard.html">Try the dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+</body>
+</html>

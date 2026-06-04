@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pricing · Baobab Consulting</title>
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/tweaks.css">
+<link rel="stylesheet" href="assets/responsive.css">
+<script src="assets/site.js" defer></script>
+<style>
+  .page-hero { padding: 80px 0 40px; }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 48px 0;
+  }
+  .tier {
+    background: var(--surface);
+    border: 1px solid var(--hair-c);
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+  }
+  .tier.featured {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .tier.featured .ink-3 { color: rgba(255,255,255,0.6) !important; }
+  .tier.featured .ink-2 { color: rgba(255,255,255,0.78) !important; }
+  .tier.featured .divider { background: rgba(255,255,255,0.12); }
+  .tier.featured .featured-badge {
+    position: absolute; top: 20px; right: 20px;
+    background: var(--accent); color: #1F2A1E;
+    font-size: 10px; padding: 4px 10px; border-radius: 999px;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+  }
+  .tier .name { font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--accent); letter-spacing: 0.05em; }
+  .tier.featured .name { color: var(--accent); }
+  .tier h3 { font-family: var(--font-serif); font-size: 36px; line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin-top: 4px; }
+  .tier .price { display: flex; align-items: baseline; gap: 6px; }
+  .tier .price .v { font-family: var(--font-serif); font-size: 56px; line-height: 1; letter-spacing: -0.025em; font-weight: 400; }
+  .tier .price .per { color: inherit; opacity: 0.6; font-size: 13px; }
+  .tier .desc { color: var(--ink-2); font-size: 14px; line-height: 1.55; }
+  .tier.featured .desc { color: rgba(255,255,255,0.78); }
+  .tier ul li {
+    list-style: none;
+    font-size: 13.5px;
+    padding: 10px 0 10px 24px;
+    position: relative;
+    line-height: 1.55;
+    border-top: 1px solid var(--hair-2);
+  }
+  .tier.featured ul li { border-color: rgba(255,255,255,0.1); }
+  .tier ul li:first-child { border-top: 0; }
+  .tier ul li::before {
+    content: "✓";
+    position: absolute; left: 0; top: 10px;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .tier.featured ul li::before { color: var(--accent); }
+  .tier ul li.x::before { content: "—"; color: var(--ink-4); }
+  .tier .cta { margin-top: auto; }
+
+  /* Comparison matrix */
+  .matrix {
+    background: var(--surface);
+    border: 1px solid var(--hair-c);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 64px 0;
+  }
+  .matrix table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .matrix th, .matrix td { padding: 14px 20px; text-align: left; }
+  .matrix thead th {
+    background: var(--surface-2);
+    font-weight: 500;
+    font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .matrix th.feature-col { width: 40%; }
+  .matrix tbody tr { border-top: 1px solid var(--hair-2); }
+  .matrix td.center { text-align: center; }
+  .matrix td.center .check { color: var(--primary); font-weight: 600; }
+  .matrix td.center .dash { color: var(--ink-4); }
+  .matrix .row-head { background: var(--surface-2); }
+  .matrix .row-head td { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); padding: 12px 20px; font-weight: 500; }
+
+  /* FAQ */
+  .faq { margin: 80px 0; }
+  .faq-item {
+    border-top: 1px solid var(--hair-c);
+    padding: 24px 0;
+  }
+  .faq-item:last-child { border-bottom: 1px solid var(--hair-c); }
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: var(--font-serif);
+    font-weight: 400;
+  }
+  .faq-q::after { content: "+"; font-family: var(--font-mono); font-size: 22px; color: var(--ink-3); }
+  details[open] .faq-q::after { content: "−"; color: var(--primary); }
+  .faq-a {
+    padding-top: 16px;
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 760px;
+  }
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+
+  @media (max-width: 980px) { .pricing-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+
+<main class="container-wide">
+  <section class="page-hero">
+    <div class="eyebrow">Pricing &amp; engagement</div>
+    <h1 class="display-2" style="margin-top: 22px; max-width: 800px;">Three ways to <span class="serif italic" style="color: var(--primary);">work with us.</span></h1>
+    <p class="lead" style="max-width: 680px; margin-top: 28px;">
+      All include the live portal and quarterly reviews. Pricing is flat — no asset-based fees, no commission on products. The accountant’s model.
+    </p>
+  </section>
+
+  <div class="pricing-grid">
+    <div class="tier">
+      <div>
+        <div class="name">Standard</div>
+        <h3>Single household</h3>
+      </div>
+      <div class="price"><span class="v">$3,800</span><span class="per">/year, ex-GST</span></div>
+      <p class="desc">For a family with one to two income sources, a PPOR, and basic super planning.</p>
+      <hr class="divider">
+      <ul>
+        <li>The full portal — all twelve schedules</li>
+        <li>One adult, no entities</li>
+        <li>FY tax estimator + EOFY position</li>
+        <li>Quarterly reviews × 4</li>
+        <li>One PPOR + one investment property</li>
+        <li class="x">Trust modelling</li>
+        <li class="x">Multi-entity tax</li>
+      </ul>
+      <a href="contact.html" class="btn btn-secondary btn-lg cta">Get started</a>
+    </div>
+
+    <div class="tier featured">
+      <span class="featured-badge">Most chosen</span>
+      <div>
+        <div class="name">Family</div>
+        <h3>Trust + two adults</h3>
+      </div>
+      <div class="price"><span class="v">$6,200</span><span class="per">/year, ex-GST</span></div>
+      <p class="desc">For two-income households running a family trust, with multiple properties and dependents.</p>
+      <hr class="divider">
+      <ul>
+        <li>Everything in Standard</li>
+        <li>Two adults, with combined planning</li>
+        <li>One discretionary trust</li>
+        <li>Up to four investment properties</li>
+        <li>Trust distribution modelling</li>
+        <li>Education funds &amp; goal tracking</li>
+        <li>Priority support — 48h response</li>
+      </ul>
+      <a href="contact.html" class="btn btn-accent btn-lg cta">Get started</a>
+    </div>
+
+    <div class="tier">
+      <div>
+        <div class="name">Bespoke</div>
+        <h3>Multi-entity wealth</h3>
+      </div>
+      <div class="price"><span class="v">From<br/>$12k</span><span class="per">/year, ex-GST</span></div>
+      <p class="desc">For business owners and high-net-worth families with operating companies, SMSFs and complex structures.</p>
+      <hr class="divider">
+      <ul>
+        <li>Everything in Family</li>
+        <li>Operating company + Bucket co.</li>
+        <li>SMSF integration</li>
+        <li>Custom schedules built for you</li>
+        <li>Monthly check-ins, not quarterly</li>
+        <li>Direct accountant + lawyer relay</li>
+        <li>Dedicated senior planner</li>
+      </ul>
+      <a href="contact.html" class="btn btn-secondary btn-lg cta">Talk to a partner</a>
+    </div>
+  </div>
+
+  <!-- Matrix -->
+  <section class="matrix">
+    <table>
+      <thead>
+        <tr>
+          <th class="feature-col">Feature</th>
+          <th class="center">Standard</th>
+          <th class="center">Family</th>
+          <th class="center">Bespoke</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-head"><td colspan="4">The portal</td></tr>
+        <tr><td>Twelve linked schedules</td><td class="center"><span class="check">●</span></td><td class="center"><span class="check">●</span></td><td class="center"><span class="check">●</span></td></tr>
+        <tr><td>Live recalculation + auto-save</td><td class="center"><span class="check">●</span></td><td class="center"><span class="check">●</span></td><td class="center"><span class="check">●</span></td></tr>
+        <tr><td>FY tax estimator (per adult)</td><td class="center">1</td><td class="center">2</td><td class="center">2+</td></tr>
+        <tr><td>Trust modelling</td><td class="center"><span class="dash">—</span></td><td class="center"><span class="check">●</span></td><td class="center"><span class="check">●</span></td></tr>
+        <tr><td>Operating co. + Bucket co.</td><td class="center"><span class="dash">—</span></td><td class="center"><span class="dash">—</span></td><td class="center"><span class="check">●</span></td></tr>
+        <tr><td>SMSF schedule</td><td class="center"><span class="dash">—</span></td><td class="center"><span class="dash">—</span></td><td class="center"><span class="check">●</span></td></tr>
+        <tr><td>Investment properties</td><td class="center">2</td><td class="center">4</td><td class="center">unlimited</td></tr>
+
+        <tr class="row-head"><td colspan="4">The relationship</td></tr>
+        <tr><td>Onboarding session (90 min)</td><td class="center"><span class="check">●</span></td><td class="center"><span class="check">●</span></td><td class="center"><span class="check">●</span></td></tr>
+        <tr><td>Scheduled review cadence</td><td class="center">Quarterly</td><td class="center">Quarterly</td><td class="center">Monthly</td></tr>
+        <tr><td>Email response time</td><td class="center">5 days</td><td class="center">48 h</td><td class="center">24 h</td></tr>
+        <tr><td>Direct lawyer / accountant relay</td><td class="center"><span class="dash">—</span></td><td class="center"><span class="dash">—</span></td><td class="center"><span class="check">●</span></td></tr>
+        <tr><td>Dedicated senior planner</td><td class="center"><span class="dash">—</span></td><td class="center"><span class="dash">—</span></td><td class="center"><span class="check">●</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="eyebrow">Frequently asked</div>
+    <h2 class="h1" style="margin-top: 14px; margin-bottom: 32px;">Things people ask before signing.</h2>
+
+    <details class="faq-item">
+      <summary class="faq-q">Is this financial product advice?</summary>
+      <div class="faq-a">No. Baobab provides planning, modelling and tax-strategy work — not personal financial product advice and not investment recommendations. We will tell you the shape of a year and the tax position behind it. We won’t tell you which fund to invest in or which super to switch to. Where personal advice is needed, we work alongside an Authorised Representative under our AFSL.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Do you also do my tax return?</summary>
+      <div class="faq-a">We don’t lodge returns directly. The portal produces a tax estimator that your accountant (or our partner accounting practice, separately engaged) uses to lodge. The estimator is built around the same FY rates and offsets your accountant uses, so the numbers reconcile.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">What happens if my circumstances change mid-year?</summary>
+      <div class="faq-a">You update the portal. New job, new property, new baby — you can edit any cell at any time and the calcs flow through. Material changes (a sale, a redundancy, a separation) trigger an out-of-cycle review with your planner at no extra charge.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Can I cancel?</summary>
+      <div class="faq-a">Yes — engagements run twelve months and renew annually. Cancel at any time and pay only for the quarter in progress. Your data is yours; export it any time.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Do you take commissions?</summary>
+      <div class="faq-a">No. We charge a flat annual fee. We do not take trail commissions, asset-based fees, kickbacks from product providers or referral fees from accountants or lenders. The fee covers the work.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Who reviews my numbers?</summary>
+      <div class="faq-a">A qualified financial planner (FAS-registered, AFSL authorised representative) — not a junior, not a chatbot. On Bespoke engagements, the partner who onboarded you stays through the year.</div>
+    </details>
+  </section>
+
+  <section style="margin: 0 0 64px; text-align: center;">
+    <h2 class="h1" style="max-width: 700px; margin: 0 auto 24px;">Talk to us before you commit.</h2>
+    <p class="lead" style="max-width: 560px; margin: 0 auto 28px;">First call is on us — 30 minutes, no obligation, no template pitch.</p>
+    <a href="contact.html" class="btn btn-primary btn-lg">Book a discovery call</a>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+</body>
+</html>
