@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About · Baobab Consulting</title>
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/tweaks.css">
+<link rel="stylesheet" href="assets/responsive.css">
+<script src="assets/site.js" defer></script>
+<style>
+  .page-hero { padding: 96px 0 48px; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    margin-top: 24px;
+  }
+  .about-grid p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 22px; }
+  .about-grid p:first-child::first-letter { font-family: var(--font-serif); font-size: 64px; line-height: 0.9; float: left; padding-right: 12px; padding-top: 6px; color: var(--primary); }
+  .about-side { font-size: 14px; }
+  .about-side dt { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); margin-top: 18px; }
+  .about-side dd { margin: 4px 0 0; color: var(--ink-2); line-height: 1.55; }
+  .about-side dd strong { color: var(--ink); font-weight: 500; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 80px 0;
+    padding: 48px 0;
+    border-top: 1px solid var(--hair-c);
+    border-bottom: 1px solid var(--hair-c);
+  }
+  .stats > div { padding: 0 32px; border-right: 1px solid var(--hair-c); }
+  .stats > div:last-child { border-right: 0; }
+  .stats .v { font-family: var(--font-serif); font-size: 64px; line-height: 1; letter-spacing: -0.025em; }
+  .stats .v em { color: var(--primary); font-style: italic; }
+  .stats .l { font-size: 13px; color: var(--ink-2); margin-top: 14px; line-height: 1.5; }
+
+  .team {
+    margin: 96px 0;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .team-card {
+    background: var(--surface);
+    border: 1px solid var(--hair-c);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .avatar {
+    width: 56px; height: 56px; border-radius: 999px;
+    background: linear-gradient(150deg, var(--primary-tint), var(--accent-tint));
+    display: grid; place-items: center;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 24px;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .team-card h4 { font-size: 18px; font-family: var(--font-serif); font-weight: 400; }
+  .team-card .role { font-size: 12px; color: var(--ink-3); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 4px; margin-bottom: 14px; }
+  .team-card p { font-size: 13px; line-height: 1.55; color: var(--ink-2); }
+  .team-card .creds { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; font-size: 11px; color: var(--ink-3); font-family: var(--font-mono); }
+  .team-card .creds span { padding: 3px 8px; background: var(--surface-2); border-radius: 3px; }
+
+  .timeline-list {
+    list-style: none;
+    counter-reset: yr;
+    padding: 0;
+    margin: 48px 0;
+  }
+  .timeline-list li {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    padding: 22px 0;
+    border-top: 1px solid var(--hair-2);
+    align-items: baseline;
+  }
+  .timeline-list li:first-child { border-top: 0; }
+  .timeline-list .yr {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 28px;
+    color: var(--accent);
+  }
+  .timeline-list h4 { font-size: 16px; margin-bottom: 4px; font-weight: 500; }
+  .timeline-list p { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+
+  @media (max-width: 880px) {
+    .about-grid, .team-grid { grid-template-columns: 1fr; gap: 40px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stats > div:nth-child(odd) { border-right: 1px solid var(--hair-c); }
+    .stats > div:nth-child(2) { border-right: 0; }
+  }
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+
+<main class="container-wide">
+  <section class="page-hero">
+    <div class="eyebrow">About Baobab</div>
+    <h1 class="display-2" style="margin-top: 22px; max-width: 980px;">A small Melbourne firm building <span class="serif italic" style="color: var(--primary);">household balance sheets</span> the way accountants do — and clients can read.</h1>
+  </section>
+
+  <section class="about-grid">
+    <div>
+      <p>Baobab started in 2018 because a senior accountant got tired of handing clients a forty-page PDF in July and watching them never open it. The plan was the work — but the artefact was wrong.</p>
+      <p>We rebuilt the planning workbook into something a household could open at the kitchen table. Twelve schedules. One file. The same numbers your accountant uses, with the linkages explained in plain English. The portal you’re reading is the latest version of that workbook — same logic, same sums, same FY 2025–26 ATO rates — turned into an interface that recalculates as you type.</p>
+      <p>We are deliberately small. Three planners, one technologist, one practice manager. We take on roughly forty new families a year. Each engagement is run by a senior planner who has been in the workbook for at least five financial years, and reviewed quarterly by the practice partner.</p>
+      <p>We are not a robo-adviser. We do not sell products. We do not take asset-based fees or commissions. We charge a flat annual fee for the planning work, and we walk it with you four times a year. If your accountant or your lender or your conveyancer needs the numbers, they get a JSON export and the workbook walks itself.</p>
+    </div>
+    <aside class="about-side">
+      <dl>
+        <dt>Founded</dt><dd>Melbourne, 2026 — by <strong>Kudzai Mhishi</strong></dd>
+        <dt>Authorisation</dt><dd>Authorised Representatives of Baobab Wealth Pty Ltd<br/>AFSL 4XX XXX</dd>
+        <dt>Tax agents</dt><dd>Through partner practice — separately engaged</dd>
+        <dt>Office</dt><dd>Lvl 4, 350 Collins Street<br/>Melbourne VIC 3000</dd>
+        <dt>Engagements</dt><dd>≈ 40 new households per year. Capacity-capped on purpose.</dd>
+        <dt>Software</dt><dd>The workbook is ours. Everything else (Class Super, BGL, Xero, MYOB) is partner-supplied and stays in their environment.</dd>
+      </dl>
+    </aside>
+  </section>
+
+  <section class="stats">
+    <div><div class="v"><em>187</em></div><div class="l">Active client households across Victoria, NSW and SA</div></div>
+    <div><div class="v"><em>$248m</em></div><div class="l">Aggregate household assets modelled in the portal</div></div>
+    <div><div class="v"><em>4×</em></div><div class="l">Reviews per year — every engagement, every tier</div></div>
+    <div><div class="v"><em>0</em></div><div class="l">Commissions, kickbacks or asset-based fees taken in seven years</div></div>
+  </section>
+
+  <section class="team">
+    <div class="eyebrow">The planners</div>
+    <h2 class="h1" style="margin-top: 14px; max-width: 700px;">A flat team. Senior people on the file.</h2>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="avatar">M</div>
+        <h4>Mai Pham</h4>
+        <div class="role">Founding partner · CA</div>
+        <p>Twenty-two years in tax and household planning, formerly senior manager at a top-10 mid-tier firm. Builds the workbook; runs the Bespoke engagements personally.</p>
+        <div class="creds"><span>CA ANZ</span><span>FAS-listed</span><span>SMSF Association</span></div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">D</div>
+        <h4>Diego Salas</h4>
+        <div class="role">Senior planner</div>
+        <p>Joined from a private wealth office in 2020. Specialty in trust structures, multi-property portfolios and intergenerational planning.</p>
+        <div class="creds"><span>FASEA</span><span>Adv. Dip FP</span></div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">P</div>
+        <h4>Priya Nair</h4>
+        <div class="role">Planner · Family engagements</div>
+        <p>Background in retail banking and mortgage broking before financial planning. Runs the Family-tier engagements and the school-fees / education-fund work.</p>
+        <div class="creds"><span>Dip FP</span><span>MFAA</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin: 96px 0;">
+    <div class="eyebrow">A short history</div>
+    <h2 class="h1" style="margin-top: 14px;">Seven years.</h2>
+    <ol class="timeline-list">
+      <li>
+        <span class="yr">2018</span>
+        <div>
+          <h4>Mai leaves a top-tier firm to start Baobab.</h4>
+          <p>A practice that does the planning work end-to-end, doesn’t sell products, and uses one workbook per family. The first version is an Excel file with eight tabs and two clients.</p>
+        </div>
+      </li>
+      <li>
+        <span class="yr">2020</span>
+        <div>
+          <h4>The workbook expands to twelve schedules.</h4>
+          <p>Cashflow calendar, rental schedule and goals tab added. Diego joins. The practice has thirty households and a waitlist for the first time.</p>
+        </div>
+      </li>
+      <li>
+        <span class="yr">2022</span>
+        <div>
+          <h4>Authorised Representative status under our AFSL.</h4>
+          <p>We bring the planning work in-house under a tighter compliance frame. Quarterly reviews become standard for every tier.</p>
+        </div>
+      </li>
+      <li>
+        <span class="yr">2024</span>
+        <div>
+          <h4>The workbook becomes a portal.</h4>
+          <p>What was an Excel hand-off is rebuilt as a private dashboard. Same sums, same logic, but live, persistent and reviewable on a phone.</p>
+        </div>
+      </li>
+      <li>
+        <span class="yr">2026</span>
+        <div>
+          <h4>One hundred and eighty-seven households.</h4>
+          <p>Capacity is capped on purpose at ≈ forty new families per year so the partner stays on every file. The waitlist is currently four months.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section style="margin: 0 0 80px; text-align: center;">
+    <h2 class="h1" style="max-width: 700px; margin: 0 auto 24px;">Want to talk about your year?</h2>
+    <a href="contact.html" class="btn btn-primary btn-lg">Book a discovery call</a>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+</body>
+</html>

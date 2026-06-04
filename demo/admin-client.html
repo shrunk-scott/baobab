@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client · Kudz Admin</title>
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/admin.css">
+<link rel="stylesheet" href="assets/dash-polish.css">
+<link rel="stylesheet" href="assets/responsive.css">
+<style>
+  body { background: var(--bg); }
+  .admin-wrap { max-width: 1480px; margin: 0 auto; padding: 0 var(--s-8); }
+  .cd-back { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-top: 28px; }
+  .cd-back:hover { color: var(--ink); }
+  .cd-hero { display: grid; grid-template-columns: 1fr 380px; gap: 40px; padding: 20px 0 32px; border-bottom: 1px solid var(--hair-c); align-items: end; }
+  @media (max-width: 880px) { .cd-hero { grid-template-columns: 1fr; } }
+  .cd-id { display: flex; gap: 16px; align-items: center; }
+  .cd-id .avatar { width: 56px; height: 56px; font-size: 18px; }
+  .cd-hero h1 { font-family: var(--font-sans); font-weight: 500; font-size: clamp(32px, 4vw, 52px); line-height: 0.98; letter-spacing: -0.03em; }
+  .cd-sub { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); margin-top: 8px; }
+  .cd-sub strong { color: var(--ink); font-weight: 500; }
+  .cd-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  .cd-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--hair-c); border: 1px solid var(--hair-c); border-radius: 14px; overflow: hidden; }
+  .cd-mini > div { background: var(--surface); padding: 16px 18px; }
+  .cd-mini .l { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+  .cd-mini .v { font-family: var(--font-mono); font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+  .cd-statusrow { display: flex; gap: 8px; align-items: center; margin-bottom: 14px; }
+  .cd-flags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+  .cd-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 18px; margin: 28px 0; }
+  @media (max-width: 1080px) { .cd-grid { grid-template-columns: 1fr; } }
+  .cd-schedules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 4px 0 28px; }
+  @media (max-width: 980px) { .cd-schedules { grid-template-columns: 1fr 1fr; } }
+  .cd-section-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin: 8px 0 14px; }
+  .t-due { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="admin-nav"></div>
+
+<main id="admin-client" class="admin-wrap">
+
+  <a class="cd-back" href="admin.html">← All clients</a>
+
+  <section class="cd-hero">
+    <div>
+      <div class="cd-statusrow" id="cd-status"></div>
+      <div class="cd-id">
+        <span class="avatar" id="cd-avatar">JF</span>
+        <div>
+          <h1 id="cd-name">Family</h1>
+          <div class="cd-sub" id="cd-sub"></div>
+        </div>
+      </div>
+      <div class="cd-flags" id="cd-flags"></div>
+      <div class="cd-actions">
+        <button class="btn btn-primary btn-sm" id="cd-open-portal">Open client portal →</button>
+        <button class="btn btn-secondary btn-sm">Message client</button>
+        <button class="btn btn-secondary btn-sm">Schedule review</button>
+        <button class="btn btn-secondary btn-sm">Generate report</button>
+      </div>
+    </div>
+    <div class="cd-mini" id="cd-mini"></div>
+  </section>
+
+  <div class="cd-section-label" style="margin-top:28px;">Schedule snapshot</div>
+  <div class="cd-schedules" id="cd-schedules"></div>
+
+  <div class="cd-grid">
+    <div class="t-panel">
+      <div class="t-panel-head"><h2>Open tasks</h2><button class="btn btn-ghost btn-sm">+ Add task</button></div>
+      <div id="cd-tasks"></div>
+    </div>
+    <div class="t-panel">
+      <div class="t-panel-head"><h2>Recent activity</h2></div>
+      <ul class="activity" id="cd-activity"></ul>
+    </div>
+  </div>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/admin.js"></script>
+<script src="assets/admin-search.js"></script>
+<script src="assets/admin-pages.js"></script>
+</body>
+</html>

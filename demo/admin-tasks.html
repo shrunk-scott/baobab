@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tasks · Kudz Admin</title>
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/admin.css">
+<link rel="stylesheet" href="assets/dash-polish.css">
+<link rel="stylesheet" href="assets/responsive.css">
+<style>
+  body { background: var(--bg); }
+  .admin-main-inner { max-width: 1280px; margin: 0 auto; }
+  .at-head { padding: 32px 0 20px; }
+  .at-head .eyebrow { margin-bottom: 12px; }
+  .at-head h1 { font-family: var(--font-sans); font-weight: 500; font-size: clamp(28px, 3.2vw, 40px); line-height: 1; letter-spacing: -0.03em; }
+  .at-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+  .at-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 980px) { .at-board { grid-template-columns: 1fr; } }
+  .at-col { background: var(--surface); border: 1px solid var(--hair-c); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+  .at-col-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--hair-2); }
+  .at-col-head .ttl { font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .at-col-head .ct { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); }
+  .at-col-head .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .at-col[data-col="high"] .dot { background: var(--neg); }
+  .at-col[data-col="medium"] .dot { background: var(--accent); }
+  .at-col[data-col="low"] .dot { background: var(--ink-3); }
+  .at-list { padding: 12px; display: flex; flex-direction: column; gap: 10px; min-height: 60px; }
+  .at-card { border: 1px solid var(--hair-c); border-radius: 10px; padding: 14px; background: var(--surface); transition: border-color .15s var(--ease), transform .12s var(--ease); cursor: pointer; }
+  .at-card:hover { border-color: var(--ink-3); transform: translateY(-1px); }
+  .at-card .at-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .at-tag { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--hair-c); }
+  .at-due { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); }
+  .at-due.soon { color: var(--neg); }
+  .at-title { font-size: 14px; line-height: 1.35; color: var(--ink); margin-bottom: 12px; }
+  .at-foot { display: flex; align-items: center; gap: 8px; }
+  .at-foot .avatar { width: 22px; height: 22px; font-size: 9px; }
+  .at-foot .at-client { font-size: 12px; color: var(--ink-2); }
+  .at-foot .at-planner { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); margin-left: auto; }
+  .at-done-check { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid var(--hair-c); display: grid; place-items: center; cursor: pointer; flex-shrink: 0; transition: all .12s var(--ease); }
+  .at-done-check:hover { border-color: var(--pos); color: var(--pos); }
+</style>
+</head>
+<body>
+<div id="admin-nav"></div>
+
+<div class="admin-app">
+  <div id="admin-side" data-active="tasks"></div>
+  <main class="admin-main">
+  <div id="admin-tasks-page" class="admin-main-inner">
+
+    <section class="at-head">
+      <div class="eyebrow">Practice Console · Tasks</div>
+      <h1>Task board</h1>
+    </section>
+
+    <div class="kpi-row ac-stats" id="at-stats" style="display:grid; grid-template-columns: repeat(4,1fr); gap:14px; margin-bottom:24px;"></div>
+
+    <div class="at-toolbar">
+      <div class="chips-bar" id="at-filters" style="margin:0;">
+        <button class="chip-btn" data-planner="all" data-active="true">All planners</button>
+        <button class="chip-btn" data-planner="K. Mhishi">Kudzai Mhishi</button>
+        <button class="chip-btn" data-planner="P. Lee">P. Lee</button>
+      </div>
+      <button class="btn btn-secondary btn-sm" id="at-add">+ New task</button>
+    </div>
+
+    <div class="at-board" id="at-board"></div>
+
+  </div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="assets/admin.js"></script>
+<script src="assets/admin-search.js"></script>
+<script src="assets/admin-pages.js"></script>
+</body>
+</html>

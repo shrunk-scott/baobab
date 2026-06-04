@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Account settings · Kudz</title>
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/tweaks.css">
+<link rel="stylesheet" href="assets/admin.css">
+<link rel="stylesheet" href="assets/responsive.css">
+<script src="assets/site.js" defer></script>
+<script src="assets/account.js" defer></script>
+<style>
+  body { background: var(--bg); }
+  .acc-wrap { max-width: 1000px; margin: 0 auto; padding: 32px var(--s-8) 64px; }
+  .acc-hero { display: flex; align-items: center; gap: 18px; padding: 12px 0 28px; border-bottom: 1px solid var(--hair-c); margin-bottom: 28px; }
+  .acc-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); color: var(--bg); display: grid; place-items: center; font-size: 18px; font-weight: 500; overflow: hidden; }
+  .acc-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .acc-avatar-btn { position: relative; padding: 0; border: 0; background: transparent; cursor: pointer; border-radius: 50%; }
+  .acc-avatar-edit { position: absolute; right: -2px; bottom: -2px; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: var(--bg); border: 2px solid var(--bg); display: grid; place-items: center; font-size: 10px; }
+  .acc-avatar-btn:hover .acc-avatar-edit { background: var(--accent); }
+  .acc-hero h1 { font-family: var(--font-sans); font-weight: 500; font-size: clamp(26px,3vw,38px); line-height: 1; letter-spacing: -0.03em; }
+  .acc-hero .acc-sub { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); margin-top: 8px; }
+  .acc-grid { display: grid; grid-template-columns: 200px 1fr; gap: 32px; }
+  @media (max-width: 820px) { .acc-grid { grid-template-columns: 1fr; gap: 18px; } }
+  .acc-nav { display: flex; flex-direction: column; gap: 2px; position: sticky; top: 80px; height: fit-content; }
+  @media (max-width: 820px) { .acc-nav { flex-direction: row; position: static; } }
+  .acc-navlink { padding: 10px 14px; border-radius: 8px; font-size: 14px; color: var(--ink-2); cursor: pointer; transition: background .12s var(--ease), color .12s var(--ease); }
+  .acc-navlink:hover { background: var(--surface-2); color: var(--ink); }
+  .acc-navlink.is-active { background: var(--ink); color: var(--bg); font-weight: 500; }
+  .acc-panes { min-width: 0; }
+  .acc-pane { display: none; }
+  .acc-pane.is-active { display: flex; flex-direction: column; gap: 18px; }
+  .acc-card { background: var(--surface); border: 1px solid var(--hair-c); border-radius: 14px; padding: 22px 24px; }
+  .acc-card-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
+  .acc-card-head h2 { font-size: 16px; font-weight: 500; letter-spacing: -0.01em; }
+  .acc-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .acc-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .acc-field-wide { grid-column: 1 / -1; }
+  .acc-field > span { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .acc-field .field { height: 42px; }
+  @media (max-width: 560px) { .acc-form { grid-template-columns: 1fr; } }
+  .acc-actions { display: flex; gap: 10px; margin-top: 20px; }
+  .acc-pwmeter { height: 4px; background: var(--surface-2); border-radius: 999px; margin-top: 16px; overflow: hidden; }
+  .acc-pwmeter-bar { height: 100%; width: 0; background: var(--neg); border-radius: 999px; transition: width .3s var(--ease), background .3s var(--ease); }
+  .acc-pwhint { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); margin-top: 8px; }
+  .acc-toggle-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .acc-toggle-title { font-size: 14px; font-weight: 500; }
+  .acc-toggle-sub { font-size: 12px; color: var(--ink-3); margin-top: 3px; }
+  .acc-switch { width: 44px; height: 26px; border-radius: 999px; background: var(--hair-c); border: 0; position: relative; cursor: pointer; transition: background .18s var(--ease); flex-shrink: 0; }
+  .acc-switch.is-on { background: var(--primary); }
+  .acc-switch-knob { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .18s var(--ease); }
+  .acc-switch.is-on .acc-switch-knob { transform: translateX(18px); }
+  .acc-sessions { margin-top: 18px; border-top: 1px solid var(--hair-2); padding-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .acc-session { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-2); }
+  .acc-session .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .acc-revoke { margin-left: auto; background: transparent; border: 1px solid var(--hair-c); border-radius: 6px; padding: 3px 10px; font-size: 11px; color: var(--ink-2); cursor: pointer; }
+  .acc-revoke:hover { border-color: var(--neg); color: var(--neg); }
+  .acc-radio-group { display: flex; flex-direction: column; gap: 10px; }
+  .acc-radio { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border: 1px solid var(--hair-c); border-radius: 10px; cursor: pointer; transition: border-color .12s var(--ease), background .12s var(--ease); }
+  .acc-radio.is-on { border-color: var(--ink); background: var(--surface-2); }
+  .acc-radio input { margin-top: 2px; accent-color: var(--ink); }
+  .acc-radio-title { font-size: 14px; font-weight: 500; display: block; }
+  .acc-radio-sub { font-size: 12px; color: var(--ink-3); }
+  .acc-danger { border-color: color-mix(in oklch, var(--neg) 30%, var(--hair-c)); }
+  .acc-danger-note { font-size: 13px; color: var(--ink-2); line-height: 1.5; margin: 0; }
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+<main class="acc-wrap">
+  <div id="account-page"></div>
+</main>
+<div id="site-footer"></div>
+</body>
+</html>

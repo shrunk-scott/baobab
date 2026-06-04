@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Messages · Kudz Admin</title>
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/admin.css">
+<link rel="stylesheet" href="assets/comms.css">
+<link rel="stylesheet" href="assets/dash-polish.css">
+<link rel="stylesheet" href="assets/responsive.css">
+<style>
+  body { background: var(--bg); }
+  .admin-main-inner { max-width: 1280px; margin: 0 auto; }
+  .pg-head { padding: 32px 0 16px; }
+  .pg-head .eyebrow { margin-bottom: 12px; }
+  .pg-head h1 { font-family: var(--font-sans); font-weight: 500; font-size: clamp(28px,3.2vw,40px); line-height: 1; letter-spacing: -0.03em; }
+</style>
+</head>
+<body>
+<script>window.COMMS_CTX='admin';</script>
+<div id="admin-nav"></div>
+<div class="admin-app">
+  <div id="admin-side" data-active="messages"></div>
+  <main class="admin-main">
+  <div class="admin-main-inner">
+    <section class="pg-head"><div class="eyebrow">Practice Console · Messages</div><h1>Messages</h1></section>
+    <div id="comms-messages"></div>
+  </div>
+  </main>
+</div>
+<div id="site-footer"></div>
+<script src="assets/admin.js"></script>
+<script src="assets/admin-search.js"></script>
+<script src="assets/comms.js"></script>
+</body>
+</html>
