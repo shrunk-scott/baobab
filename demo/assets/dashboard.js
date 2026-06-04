@@ -192,8 +192,17 @@
     const rentalRow = state.income.find(r => /rental/i.test(r.src));
     const rentalAnnual = rentalRow ? ((+rentalRow.trust+(+rentalRow.p1)+(+rentalRow.p2)) * 12) : 0;
 
-    // Expenses
-    const expByGroup = state.expenses.map(g => ({ group: g.group, total: g.items.reduce((s, it) => s + (+it.annual || 0), 0) }));
+    // Expenses — annual per item = sum of every frequency column
+    const EXP_FREQ = { week: 52, month: 12, quarter: 4, year: 1 };
+    const itemAnnual = (it) => {
+      if (it.week === undefined && it.month === undefined && it.quarter === undefined && it.year === undefined) {
+        // legacy {amount,freq} / {annual}
+        const amt = (it.amount != null ? +it.amount : (+it.annual || 0));
+        return Math.round(amt * (EXP_FREQ[it.freq] || 1));
+      }
+      return Math.round(['week','month','quarter','year'].reduce((s, c) => s + (+it[c] || 0) * EXP_FREQ[c], 0));
+    };
+    const expByGroup = state.expenses.map(g => ({ group: g.group, total: g.items.reduce((s, it) => s + itemAnnual(it), 0) }));
     const expHouseAnnual = expByGroup.filter(g => !/entertainment/i.test(g.group)).reduce((s, g) => s + g.total, 0);
     const expEntAnnual = expByGroup.filter(g => /entertainment/i.test(g.group)).reduce((s, g) => s + g.total, 0);
     const expTotalAnnual = expHouseAnnual + expEntAnnual;
@@ -811,11 +820,17 @@
         <td class="num" style="text-align:right;"><button class="btn btn-ghost btn-sm" data-del-category="${gi}" title="Remove category">✕</button></td>
       </tr>`;
       g.items.forEach((it, ii) => {
-        // migrate legacy {annual} → {amount, freq}
-        if (it.freq === undefined) { it.freq = 'year'; it.amount = (it.amount != null ? it.amount : (+it.annual || 0)); }
-        const annual = Math.round((+it.amount || 0) * (FREQ[it.freq] || 1));
+        // migrate legacy {amount, freq} or {annual} → per-frequency fields
+        if (it.week === undefined && it.month === undefined && it.quarter === undefined && it.year === undefined) {
+          const legacyAmt = (it.amount != null ? +it.amount : (+it.annual || 0));
+          const legacyFreq = it.freq || 'year';
+          COLS.forEach(c => it[c] = 0);
+          it[legacyFreq] = legacyAmt;
+        }
+        // annual = sum of every frequency column
+        const annual = Math.round(COLS.reduce((s, c) => s + (+it[c] || 0) * FREQ[c], 0));
         it.annual = annual;
-        const cell = (col) => `<td class="num"><input class="field" type="number" placeholder="—" data-exp-freq="${gi}.${ii}.${col}" value="${it.freq === col && it.amount ? it.amount : ''}"></td>`;
+        const cell = (col) => `<td class="num"><input class="field" type="number" placeholder="—" data-exp-freq="${gi}.${ii}.${col}" value="${(+it[col]) ? it[col] : ''}"></td>`;
         html += `<tr>
           <td><input class="field text-input" type="text" data-exp="${gi}.${ii}.name" value="${it.name||''}"></td>
           ${COLS.map(cell).join('')}
@@ -1312,7 +1327,42 @@
   }
 
   // ── RECALC + RERENDER ALL ───────────────────────────────────────
-  function rerender() {
+  // Capture the focused field so a rerender (which rebuilds table HTML)
+  // doesn't drop the cursor mid-typing and leak digits to global shortcuts.
+  function focusKey(el) {
+    if (!el) return null;
+    for (const a of ['data-inc','data-exp','data-exp-freq','data-input','data-tax','data-goal','data-al','data-debt-input','data-rental']) {
+      if (el.hasAttribute(a)) return `[${a}="${el.getAttribute(a)}"]`;
+    }
+    return null;
+  }
+  // While the user is actively typing in a field, rebuilding that field's
+  // table would reset the caret (you can't restore caret on type=number).
+  // So on input we only refresh things OUTSIDE the active table (KPIs, charts),
+  // and defer the full table rebuild to blur/change.
+  function rerender(opts) {
+    opts = opts || {};
+    const ae = document.activeElement;
+    const editing = opts.fromInput && ae && focusKey(ae);
+    if (editing) {
+      // Don't touch the DOM synchronously while the user is typing — it can
+      // disturb the caret on number inputs. Debounce a KPI-only refresh that
+      // never rebuilds the active table.
+      scheduleLiveKpis();
+      saveState();
+      return;
+    }
+    _rerenderBody();
+  }
+  let _kpiTimer = null;
+  function scheduleLiveKpis() {
+    if (_kpiTimer) clearTimeout(_kpiTimer);
+    _kpiTimer = setTimeout(() => {
+      _kpiTimer = null;
+      try { renderOverview(calcDerived()); } catch (e) {}
+    }, 450);
+  }
+  function _rerenderBody() {
     const d = calcDerived();
     const active = document.querySelector('.dash-tab[data-active="true"]');
     const which = active ? active.dataset.tab : 'overview';
@@ -1351,28 +1401,35 @@
     if (t.dataset.input) {
       const k = t.dataset.input;
       state[k] = (t.type === 'number' || t.dataset.numeric === '1') ? num(t.value) : t.value;
-      rerender(); return;
+      rerender({ fromInput: true }); return;
     }
     if (t.dataset.inc) {
       const [i, k] = t.dataset.inc.split('.');
       state.income[+i][k] = t.type === 'number' ? num(t.value) : t.value;
-      rerender(); return;
+      rerender({ fromInput: true }); return;
     }
     if (t.dataset.tax) {
       const [who, k] = t.dataset.tax.split('.');
       state.tax[who][k] = num(t.value);
-      rerender(); return;
+      rerender({ fromInput: true }); return;
     }
     if (t.dataset.exp) {
       const [gi, ii, k] = t.dataset.exp.split('.');
       state.expenses[+gi].items[+ii][k] = t.type === 'number' ? num(t.value) : t.value;
-      rerender(); return;
+      rerender({ fromInput: true }); return;
     }
     if (t.dataset.expFreq) {
       const [gi, ii, freq] = t.dataset.expFreq.split('.');
-      state.expenses[+gi].items[+ii].amount = num(t.value);
-      state.expenses[+gi].items[+ii].freq = freq;
-      rerender(); return;
+      const item = state.expenses[+gi].items[+ii];
+      // Ensure all four frequency fields exist (migrate legacy on first edit)
+      if (item.week === undefined && item.month === undefined && item.quarter === undefined && item.year === undefined) {
+        const amt = (item.amount != null ? +item.amount : (+item.annual || 0));
+        ['week','month','quarter','year'].forEach(c => item[c] = 0);
+        item[item.freq || 'year'] = amt;
+        delete item.amount; delete item.freq;
+      }
+      item[freq] = num(t.value);
+      rerender({ fromInput: true }); return;
     }
     if (t.dataset.expgroup) {
       state.expenses[+t.dataset.expgroup].group = t.value;
@@ -1381,21 +1438,33 @@
     if (t.dataset.debtInput) {
       const [which, i, k] = t.dataset.debtInput.split('.');
       state.debt[which][+i][k] = (k === 'name' || k === 'type') ? t.value : num(t.value);
-      rerender(); return;
+      rerender({ fromInput: true }); return;
     }
     if (t.dataset.rental) {
       setPath(state.rental, t.dataset.rental, t.type === 'number' ? num(t.value) : t.value);
-      rerender(); return;
+      rerender({ fromInput: true }); return;
     }
     if (t.dataset.goal) {
       const [i, k] = t.dataset.goal.split('.');
       state.goals[+i][k] = t.type === 'number' ? num(t.value) : t.value;
-      rerender(); return;
+      rerender({ fromInput: true }); return;
     }
     if (t.dataset.al) {
       const [i, k] = t.dataset.al.split('.');
       state.al[+i][k] = (k === 'asset' || k === 'liab') ? num(t.value) : t.value;
-      rerender(); return;
+      rerender({ fromInput: true }); return;
+    }
+  });
+
+  // On blur, do a full rebuild so computed cells (annual totals, subtotals,
+  // tables) catch up with what was typed.
+  document.addEventListener('focusout', (e) => {
+    const t = e.target;
+    if (t && t.matches && t.matches('input, select, textarea') &&
+        (t.dataset.input || t.dataset.inc || t.dataset.tax || t.dataset.exp ||
+         t.dataset.expFreq || t.dataset.debtInput || t.dataset.rental ||
+         t.dataset.goal || t.dataset.al)) {
+      setTimeout(() => { if (typeof _rerenderBody === 'function') _rerenderBody(); }, 0);
     }
   });
 

@@ -245,17 +245,20 @@
     if (open) return; // palette handles its own keys
     if (inField) return;
 
-    // Tab quick-jump 1..9, 0 (=10)
-    if (/^[1-9]$/.test(e.key)) {
+    // On the data-entry dashboard, bare keys must never hijack typing.
+    const onDashboard = !!document.querySelector('.dash-app');
+
+    // Tab quick-jump 1..9, 0 (=10) — only off the dashboard
+    if (!onDashboard && /^[1-9]$/.test(e.key)) {
       const idx = parseInt(e.key, 10) - 1;
       if (TABS[idx]) { e.preventDefault(); go(TABS[idx].id); }
       return;
     }
-    if (e.key === '0' && TABS[9]) { e.preventDefault(); go(TABS[9].id); return; }
+    if (!onDashboard && e.key === '0' && TABS[9]) { e.preventDefault(); go(TABS[9].id); return; }
     if (e.key === '/') { e.preventDefault(); openPalette(); return; }
     if (e.key === '?') { e.preventDefault(); toggleHelp(); return; }
-    if (e.key === 'e' || e.key === 'E') { e.preventDefault(); clickId('export-btn'); return; }
-    if (e.key === 't' || e.key === 'T') { e.preventDefault(); clickId('template-dl-btn'); return; }
+    if (!onDashboard && (e.key === 'e' || e.key === 'E')) { e.preventDefault(); clickId('export-btn'); return; }
+    if (!onDashboard && (e.key === 't' || e.key === 'T')) { e.preventDefault(); clickId('template-dl-btn'); return; }
   });
 
   // Expose for other modules
