@@ -1,0 +1,593 @@
+Sheets (12):
+  1. 🔒 Terms of Use
+  2. ⚙ Assumptions
+  3. 📊 Dashboard
+  4. 💰 Income Planning
+  5. 🧮 Tax Estimator
+  6. 🏠 Household Expenditure
+  7. 📅 Monthly Cashflow
+  8. 🏦 Debt Schedule
+  9. 🏘 Rental Properties
+  10. 🎯 Goals &amp; Super
+  11. 📋 Summary
+  12. 📈 A+L
+
+========== Sheet 1: 🔒 Terms of Use ==========
+R2: Intellectual Property Notice &amp; Terms of Use |  | 
+R4: &#169; Baobab Group of Companies (incl. Baobab CFO Pty Ltd &amp; Baobab Consulting). No unauthorised use or reproduction without prior writt |  | 
+R5:  | INTELLECTUAL PROPERTY | 
+R6:  | Ownership | 
+R7:  | This workbook and all of its contents &#8212; including but not limited to its structure, formulas, design, data, calculations, brand elemen | 
+R8:  | Copyright | 
+R9:  | &#169; 2026 Baobab Group of Companies. All rights reserved. No part of this workbook may be reproduced, distributed, modified, adapted, tran | 
+R10:  | Unauthorised Use | 
+R11:  | Any unauthorised use, reproduction, distribution or modification of this workbook or its contents constitutes an infringement of Baobab&#821 | 
+R13:  | TERMS OF USE | 
+R14:  | Licensed Use | 
+R15:  | This workbook is provided to the named client exclusively for their personal household planning purposes. Use is limited to the client and t | 
+R16:  | Prohibited Uses | 
+R17:  | You may not: (a) share or distribute this workbook to any third party; (b) use it to create competing products or services; (c) remove, alte | 
+R18:  | Confidentiality | 
+R19:  | This workbook contains confidential financial information and proprietary methodology. Recipients must treat it as confidential and not disc | 
+R21:  | DISCLAIMER | 
+R22:  | Planning Only | 
+R23:  | This workbook is for financial planning and modelling purposes only. It does not constitute financial, tax, legal or accounting advice. Outp | 
+R24:  | Accuracy | 
+R25:  | Baobab Consulting takes reasonable care to ensure accuracy but does not warrant that figures are correct for any specific purpose. The clien | 
+R26:  | Contact | 
+R27:  | For permissions, licensing enquiries or to report a breach of these terms, contact Baobab Consulting. Unauthorised use will be pursued. | 
+
+========== Sheet 2: ⚙ Assumptions ==========
+R3:  | &#169; Baobab Group of Companies (incl. Baobab CFO Pty Ltd &amp; Baobab Consulting). No unauthorised use or reproduction without prior writt |  |  |  |  |  |  |  |  |  |  |  |  | 
+R4:  | FAMILY &amp; GENERAL |  |  |  | ATO TAX BRACKETS 2025&#8211;26 (Ref) |  |  |  |  |  |  |  |  | 
+R5:  | Setting | Value | Notes |  | Taxable Income | Rate | Base Tax + Marginal |  |  |  |  |  |  | 
+R6:  | Financial Year | 2025-26 | Change each year |  | $0 &#8211; $18,200 | 0% | Nil |  |  |  |  |  |  | 
+R7:  | Family Name | Le |  |  | $18,201 &#8211; $45,000 | 16c | Nil + 16c over $18,200 |  |  |  |  |  |  | 
+R8:  | Person 1 Name | Lina |  |  | $45,001 &#8211; $135,000 | 30c | $4,288 + 30c over $45,000 |  |  |  |  |  |  | 
+R9:  | Person 2 Name | TBC |  |  | $135,001 &#8211; $190,000 | 37c | $31,288 + 37c over $135,000 |  |  |  |  |  |  | 
+R10:  | Number of Dependents | 2 | For tax offset calcs |  | $190,001+ | 45c | $51,638 + 45c over $190,000 |  |  |  |  |  |  | 
+R11:  | Trust Name | Le Family Trust |  |  |  |  |  |  |  |  |  |  |  | 
+R12:  | Trust Distribution &#8212; Person 1 | 1 |  |  | Medicare Levy | 2.0% | On full taxable income |  |  |  |  |  |  | 
+R13:  | Trust Distribution &#8212; Person 2 | 0 |  |  | LITO (max) | $700 | Phases out $37,500&#8211;$66,667 |  |  |  |  |  |  | 
+R14:  |  |  |  |  | LMITO | Nil | Ceased FY2022-23 |  |  |  |  |  |  | 
+R15:  | RATES &amp; ASSUMPTIONS |  |  |  |  |  |  |  |  |  |  |  |  | 
+R16:  | Rate | Value | Notes |  |  |  |  |  |  |  |  |  |  | 
+R17:  | RBA Cash Rate | 4.35% | As at April 2026 |  |  |  |  |  |  |  |  |  |  | 
+R18:  | Assumed Mortgage Rate | 6.20% | Investment loans |  |  |  |  |  |  |  |  |  |  | 
+R19:  | Assumed Mortgage Rate (PPOR) | 6.00% | Principal residence |  |  |  |  |  |  |  |  |  |  | 
+R20:  | Inflation Assumption | 3.0% | CPI for cost escalation |  |  |  |  |  |  |  |  |  |  | 
+R21:  | Property Growth Rate (p.a.) | 5.0% | Assumed capital growth |  |  |  |  |  |  |  |  |  |  | 
+R22:  | Share Market Return (p.a.) | 9.0% | Long-run ASX avg |  |  |  |  |  |  |  |  |  |  | 
+R23:  | Super Guarantee Rate | 0.12 |  |  |  |  |  |  |  |  |  |  |  | 
+R24:  | Concessional Cap (FY25) | $30,000 |  |  |  |  |  |  |  |  |  |  |  | 
+R25:  | Non-Concessional Cap | $120,000 |  |  |  |  |  |  |  |  |  |  |  | 
+R26:  | Super Growth Rate (planning) | 0.07 |  |  |  |  |  |  |  |  |  |  |  | 
+R27:  | Retirement Drawdown Rate | 0.05 |  |  |  |  |  |  |  |  |  |  |  | 
+R28:  | &#128203; HOW TO USE &#8212; ASSUMPTIONS |  |  |  |  |  |  |  |  |  |  |  |  | 
+R29:  | This is the master settings hub. Change values here and they flow automatically through the entire workbook. |  |  |  |  |  |  |  |  |  |  |  |  | 
+R30:  | &#8594;  Yellow cells |  | Enter your own values (names, rates, splits) |  |  |  |  |  |  |  |  |  |  | 
+R31:  | &#8594;  Financial Year |  | Update FY year each July &#8212; tax brackets and rates update automatically |  |  |  |  |  |  |  |  |  |  | 
+R32:  | &#8594;  Trust Distribution % |  |  |  |  |  |  |  |  |  |  |  |  | 
+R33:  | &#8594;  SGC Rate |  |  |  |  |  |  |  |  |  |  |  |  | 
+R34:  | &#8594;  Negative Gearing Eligible |  | YES = property losses deductible against all income (grandfathered properties). NO = losses quarantined to rental income only. Properties ac |  |  |  |  |  |  |  |  |  |  | 
+R35:  | &#8594;  CGT Discount Eligible |  | YES = 50% CGT discount on sale of assets held &gt;12 months (existing properties). NO = 30% minimum tax + cost base indexation. Applies to g |  |  |  |  |  |  |  |  |  |  | 
+R36:  | &#8594;  Green cells |  | These are reference-only &#8212; do not edit |  |  |  |  |  |  |  |  |  |  | 
+R37:  | &#128161; Tip |  | Update this tab first at the start of each financial year before touching any other tab. |  |  |  |  |  |  |  |  |  |  | 
+R42:  | CASHFLOW &amp; TAX SETTINGS |  |  |  |  |  |  |  |  |  |  |  |  | 
+R43:  | Setting | Value | Notes |  |  |  |  |  |  |  |  |  |  | 
+R44:  | Link Cashflow to Annual Budget | YES | YES = auto-fill Monthly Cashflow from budgets  |  NO = manual entry |  |  |  |  |  |  |  |  |  |  | 
+R45:  | Dividend Franking Rate | 1 | 1.0 = 100% fully franked (standard ASX).  0.5 = 50% franked |  |  |  |  |  |  |  |  |  |  | 
+R46:  | Corporate / Company Tax Rate | 0.30 | 30% standard  |  25% for Base Rate Entity / small business (turnover &lt;$50M) |  |  |  |  |  |  |  |  |  |  | 
+R47:  | Negative Gearing Eligible | YES | YES = rental losses offset all income  |  NO = losses quarantined to rental income only (properties acquired after 12 May 2026) |  |  |  |  |  |  |  |  |  |  | 
+R48:  | CGT Discount Eligible | YES | YES = 50% CGT discount applies  |  NO = 30% min tax + indexation (gains accruing after 1 Jul 2027 on new acquisitions) |  |  |  |  |  |  |  |  |  |  | 
+R50:  | COLOUR GUIDE |  |  |  |  |  |  |  |  |  |  |  |  | 
+R51:  | Sample | Warm amber with gold accent | Enter your data &#8212; these cells are unlocked |  |  |  |  |  |  |  |  |  |  | 
+R52:  | Sample | Sage green | Calculated automatically &#8212; do not edit |  |  |  |  |  |  |  |  |  |  | 
+R53:  | Sample | Deep brown | Section header &#8212; use for navigation |  |  |  |  |  |  |  |  |  |  | 
+R54:  | Sample | Warm gold | Subtotal or grouping row |  |  |  |  |  |  |  |  |  |  | 
+R55:  | Sample | Forest green | Column header &#8212; identifies data type |  |  |  |  |  |  |  |  |  |  | 
+
+========== Sheet 3: 📊 Dashboard ==========
+R3:  | &#169; Baobab Group of Companies (incl. Baobab CFO Pty Ltd &amp; Baobab Consulting). No unauthorised use or reproduction without prior writt |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R4:  | Category | Weekly | Monthly | Annual |  | KEY PLANNING METRICS |  |  |  |  |  |  |  |  |  | 
+R5:  | INCOME |  |  |  |  | Savings Rate |  | Target: &gt;20% |  |  |  |  |  |  |  | 
+R6:  | Salary / Wages (net take-home) |  |  |  |  | Debt Service Ratio |  | Target: &lt;30% |  |  |  |  |  |  |  | 
+R7:  | Trust / Business Income |  |  |  |  | Mortgage Debt / Assets |  | LVR across all loans |  |  |  |  |  |  |  | 
+R8:  | Consulting Income |  |  |  |  | Emergency Fund (months) |  | Target: 3&#8211;6 months |  |  |  |  |  |  |  | 
+R9:  | Investment Returns |  |  |  |  | Total Net Worth |  | Assets less Liabilities |  |  |  |  |  |  |  | 
+R10:  | Net Rental Income |  |  |  |  |  |  | See Goals &amp; Super tab |  |  |  |  |  |  |  | 
+R11:  | TOTAL INCOME |  |  |  |  |  |  | See Goals &amp; Super tab |  |  |  |  |  |  |  | 
+R13:  | EXPENDITURE |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R14:  | Household Expenses |  |  |  |  | Annual Tax Combined |  | Total tax burden |  |  |  |  |  |  |  | 
+R15:  | Entertainment &amp; Social |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R16:  | Investment Property Costs |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R17:  | Debt &#8212; Investment Loans |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R18:  | Debt &#8212; Private Loans |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R19:  | Capital Expenditure | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  | 
+R20:  | Discretionary (Holidays) |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R21:  | Savings / Investments |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R22:  | TOTAL EXPENSES |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R24:  | CASHFLOW SURPLUS / (DEFICIT) |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R25:  | Net Cashflow |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R28:  | &#128203; HOW TO USE &#8212; DASHBOARD |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R29:  | This tab is read-only &#8212; all figures here flow automatically from the detail tabs. |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R30:  | &#8594;  Purpose |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R31:  | &#8594;  Savings Rate |  | Target &gt;20%. If below 10% &#8212; review household expenses first |  |  |  |  |  |  |  |  |  |  |  |  | 
+R32:  | &#8594;  Debt Service Ratio |  | Target &lt;30% of income. Above 40% = financial stress zone |  |  |  |  |  |  |  |  |  |  |  |  | 
+R33:  | &#8594;  Net Worth |  | Updated from the A+L tab &#8212; fill that in to see this change |  |  |  |  |  |  |  |  |  |  |  |  | 
+R34:  | &#8594;  Tax Combined |  | Flows from Tax Estimator &#8212; enter income there for live estimates |  |  |  |  |  |  |  |  |  |  |  |  | 
+R35:  | &#128161; Tip |  | Show this tab to clients at the start of each review meeting as a conversation starter. |  |  |  |  |  |  |  |  |  |  |  |  | 
+
+========== Sheet 4: 💰 Income Planning ==========
+R3:  | &#169; Baobab Group of Companies (incl. Baobab CFO Pty Ltd &amp; Baobab Consulting). No unauthorised use or reproduction without prior writt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R4:  | Income Source |  |  |  | Total |  |  |  |  | Total |  |  |  |  |  |  | 
+R5:  |  | Monthly | Monthly | Monthly | Monthly |  | Annual | Annual | Annual | Annual |  |  |  |  |  |  | 
+R6:  | Business Income &#8212; Dividends |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R7:  | Shrunk | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R8:  | XXX | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R9:  | Other Dividends | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R10:  |   Subtotal &#8212; Business Income &#8212; Dividends |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R12:  | Consulting Income |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R13:  | XXX | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R14:  | XXX | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R15:  | Other State | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R16:  |   Subtotal &#8212; Consulting Income |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R18:  | NET SALARY &#8212; Take-home Cash Received |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R19:  | XXX | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R20:  | XXX | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R21:  | Other | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R22:  |   Subtotal &#8212; Net Salary / Wages |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R24:  | Investment Income |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R25:  | Dividend Income (cash received) | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R26:  | Interest Income | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R27:  | Other Investment | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R28:  |   Subtotal &#8212; Investment Income |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R30:  | TOTAL CASH INCOME |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R31:  | TOTAL |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R34:  | &#128203; HOW TO USE &#8212; INCOME PLANNING |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R35:  | Record NET income received in your bank account. SALARY = take-home after tax and super deducted.  Enter as MONTHLY amounts &#8212; annual f |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R36:  | &#8594; Columns C/D/E = Trust / Person 1 / Person 2 monthly NET amounts (take-home cash) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R37:  | &#8594;  Column F |  | Total monthly &#8212; auto-calculated from C+D+E |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R38:  | &#8594;  Columns H&#8211;K |  | Annual equivalents &#8212; auto-calculated &#215; 12 from monthly |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R39:  | &#8594;  Franking Credits |  | Include grossed-up value &#8212; important for Tax Estimator accuracy |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R40:  | &#8594;  Net Salary |  | Enter after-tax take-home pay here. Use Tax Estimator for gross income |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R41:  | &#128161; Tip |  | Enter zero ('0') not blank for unused income sources &#8212; this prevents formula errors. |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+
+========== Sheet 5: 🧮 Tax Estimator ==========
+R3:  | &#169; Baobab Group of Companies (incl. Baobab CFO Pty Ltd &amp; Baobab Consulting). No unauthorised use or reproduction without prior writt |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R4:  | Description |  |  |  | Combined | Notes |  |  |  |  |  |  |  |  |  | 
+R5:  | INCOME &#8212; Enter GROSS taxable amounts |  |  |  |  |  | Type |  |  |  |  |  |  |  |  | 
+R6:  | Gross Salary / Wages | 0 | 0 | 0 |  |  | SGC &#8212; Employer (12%) |  |  |  |  |  |  |  |  | 
+R7:  | Trust Distributions Received | 0 | 0 | 0 |  |  | Salary Sacrifice | 0 | 0 |  |  |  |  |  |  | 
+R8:  | Consulting / Business Income | 0 | 0 | 0 |  |  | Personal Contributions | 0 | 0 |  |  |  |  |  |  | 
+R9:  | Net Rental Income / (Loss) | 0 | 0 |  |  | Trust rental auto-links from Rental Properties sheet with gearing switch. Enter personal rental (C9/D9) manually. | Concessional Total |  |  |  |  |  |  |  |  | 
+R10:  | Dividend Income | 0 | 0 | 0 |  |  |  | 30000 | 30000 |  |  |  |  |  |  | 
+R11:  | Franking Credits (auto-calculated) |  |  |  |  |  | Remaining Cap |  |  |  |  |  |  |  |  | 
+R12:  | Other Income | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  | 
+R14:  | ALLOWABLE DEDUCTIONS &#8212; Enter your deductible expenses below |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R15:  | Work-Related Expenses | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  | 
+R16:  | Investment Property Expenses | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  | 
+R17:  | Income Protection Insurance | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  | 
+R18:  | Other Deduction | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  | 
+R19:  | Total Allowable Deductions |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R21:  | TAXABLE INCOME |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R24:  | Gross Income Tax |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R25:  | Less: LITO |  |  | 0 |  |  |  |  |  |  |  |  |  |  |  | 
+R26:  | Add: Medicare Levy (2%) |  |  | 0 |  |  |  |  |  |  |  |  |  |  |  | 
+R27:  | Less: Franking Credits |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R28:  | Less: PAYG Withheld during year | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  | 
+R29:  | Less: Other Credits &amp; Adjustments | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  | 
+R31:  | TAX BALANCE DUE / (REFUND) |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R33:  | ADDITIONAL INFORMATION |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R34:  | Effective Tax Rate |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R35:  | Net After-Tax Income |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R36:  | Estimated SGC &#8212; Employer (12%) |  |  | 0 |  |  |  |  |  |  |  |  |  |  |  | 
+R37:  | CGT Discount on Property Sale |  |  |  |  | Set CGT Discount Eligible switch in Assumptions. From 1 Jul 2027, new property acquisitions use 30% min tax + indexation. |  |  |  |  |  |  |  |  |  | 
+R38:  | Rental Loss Treatment |  |  |  |  | Set Negative Gearing Eligible in Assumptions. Properties acquired after 12 May 2026 cannot offset losses against non-rental income from 1 Ju |  |  |  |  |  |  |  |  |  | 
+R40:  | &#9888;  TRUST TAX NOTE (FY2027-28 onwards) |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R42:  | HOW TO USE &#8212; TAX ESTIMATOR |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R43:  | &#8594;  Income section | Enter GROSS amounts. Salary = what employer pays before tax &amp; super are deducted. |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R44:  | &#8594;  Deductions | Name each deduction in the amber label cell. Enter amounts in C &amp; D. |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R45:  | &#8594;  Taxable Income | Gross income minus your total allowable deductions. |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R46:  | &#8594;  PAYG Withheld | Enter total tax withheld from payslips &#8212; reduces your balance due. |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R47:  | &#8594;  Balance Due/(Refund) | What you owe or get back at tax time after all offsets and PAYG. |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R48:  | &#8594;  Corp. Tax Rate | Set in Assumptions &#8212; 30% standard, 25% Base Rate Entity / small business. |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R49:  | &#8594;  Disclaimer | Planning purposes only &#8212; engage a registered tax agent for lodgement. |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+
+========== Sheet 6: 🏠 Household Expenditure ==========
+R3:  | &#169; Baobab Group of Companies (incl. Baobab CFO Pty Ltd &amp; Baobab Consulting). No unauthorised use or reproduction without prior writt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R4:  | Expense Category | Per Week
+(enter here) | Per Month
+(enter here) | Per Quarter
+(enter here) | Per Year
+(enter here) | ANNUAL
+TOTAL |  | Expense Category | Per Week
+(enter here) | Per Month
+(enter here) | Per Quarter
+(enter here) | Per Year
+(enter here) | ANNUAL
+TOTAL |  |  |  |  |  |  | 
+R5:  | GROCERIES &amp; FOOD |  |  |  |  |  |  | ENTERTAINMENT &#8212; PERSON 1 |  |  |  |  |  |  |  |  |  |  |  | 
+R6:  | Groceries / Supermarket | 0 | 0 | 0 | 0 |  |  | Coffees | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R7:  | Fresh Produce / Deli | 0 | 0 | 0 | 0 |  |  | Work Lunches | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R8:  | Baby / Pet Food | 0 | 0 | 0 | 0 |  |  | Weekend Brunches / Lunches | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R9:  |   Total &#8212; GROCERIES &amp; FOOD |  |  |  |  |  |  | Dinners Out | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R10:  | HOME &#8212; PRINCIPAL RESIDENCE |  |  |  |  |  |  | Pub / Bar | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R11:  | Council Rates | 0 | 0 | 0 | 0 |  |  | Weekends Away | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R12:  | Water | 0 | 0 | 0 | 0 |  |  | Personal Cash | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R13:  | Electricity | 0 | 0 | 0 | 0 |  |  |   Total &#8212; ENTERTAINMENT &#8212; PERSON 1 |  |  |  |  |  |  |  |  |  |  |  | 
+R14:  | Gas | 0 | 0 | 0 | 0 |  |  | ENTERTAINMENT &#8212; PERSON 2 |  |  |  |  |  |  |  |  |  |  |  | 
+R15:  | Home Insurance | 0 | 0 | 0 | 0 |  |  | Coffees | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R16:  | Contents Insurance | 0 | 0 | 0 | 0 |  |  | Work Lunches | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R17:  | Major Household (furniture, appliances) | 0 | 0 | 0 | 0 |  |  | Weekend Brunches / Lunches | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R18:  | Minor Maintenance &amp; Garden | 0 | 0 | 0 | 0 |  |  | Dinners Out | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R19:  |   Total &#8212; HOME &#8212; PRINCIPAL RESIDENCE |  |  |  |  |  |  | Pub / Bar | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R20:  | POOL &amp; OUTDOOR |  |  |  |  |  |  | Weekends Away | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R21:  | Pool Maintenance | 0 | 0 | 0 | 0 |  |  | Personal Cash | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R22:  | Gardening / Lawn | 0 | 0 | 0 | 0 |  |  |   Total &#8212; ENTERTAINMENT &#8212; PERSON 2 |  |  |  |  |  |  |  |  |  |  |  | 
+R23:  |   Total &#8212; POOL &amp; OUTDOOR |  |  |  |  |  |  | ENTERTAINMENT &#8212; JOINT / FAMILY |  |  |  |  |  |  |  |  |  |  |  | 
+R24:  | TELEPHONE &amp; INTERNET |  |  |  |  |  |  | Restaurants | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R25:  | Fixed Line / NBN | 0 | 0 | 0 | 0 |  |  | Fast Food / Takeaway | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R26:  | Mobile &#8212; Person 1 | 0 | 0 | 0 | 0 |  |  | Outings (cinema, sport, concerts) | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R27:  | Mobile &#8212; Person 2 | 0 | 0 | 0 | 0 |  |  | Kids Entertainment | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R28:  | Mobile &#8212; Dependents | 0 | 0 | 0 | 0 |  |  | Beer &amp; Wine (home) | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R29:  |   Total &#8212; TELEPHONE &amp; INTERNET |  |  |  |  |  |  | Home Entertaining | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R30:  | STREAMING &amp; SUBSCRIPTIONS |  |  |  |  |  |  | Family Activities | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R31:  | Netflix / Stan / Disney | 0 | 0 | 0 | 0 |  |  |   Total &#8212; ENTERTAINMENT &#8212; JOINT / FAMILY |  |  |  |  |  |  |  |  |  |  |  | 
+R32:  | Spotify / Music | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R33:  | News / Magazines | 0 | 0 | 0 | 0 |  |  | TOTAL ENTERTAINMENT SPEND |  |  |  |  |  |  |  |  |  |  |  | 
+R34:  | Other Subscriptions | 0 | 0 | 0 | 0 |  |  | TOTAL ENTERTAINMENT |  |  |  |  |  |  |  |  |  |  |  | 
+R35:  |   Total &#8212; STREAMING &amp; SUBSCRIPTIONS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R36:  | VEHICLE 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R37:  | Insurance | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R38:  | Registration | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R39:  | Lease / Loan Payment | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R40:  | Fuel | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R41:  | Repairs &amp; Service | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R42:  | RACV / NRMA | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R43:  |   Total &#8212; VEHICLE 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R44:  | VEHICLE 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R45:  | Insurance | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R46:  | Registration | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R47:  | Lease / Loan Payment | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R48:  | Fuel | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R49:  | Repairs &amp; Service | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R50:  | RACV / NRMA | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R51:  |   Total &#8212; VEHICLE 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R52:  | PUBLIC TRANSPORT &amp; CABS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R53:  | Myki / Opal / PT | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R54:  | Taxi / Uber | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R55:  | Parking | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R56:  |   Total &#8212; PUBLIC TRANSPORT &amp; CABS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R57:  | HEALTH &amp; MEDICAL |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R58:  | Private Health Insurance | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R59:  | GP / Specialist Visits | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R60:  | Pharmacy | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R61:  | Dental | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R62:  | Orthodontics | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R63:  | Physio / Allied Health | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R64:  | Mental Health / Psychology | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R65:  |   Total &#8212; HEALTH &amp; MEDICAL |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R66:  | CLOTHING &amp; GROOMING |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R67:  | Person 1 &#8212; Clothing | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R68:  | Person 2 &#8212; Clothing | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R69:  | Dependents &#8212; Clothing | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R70:  | Haircuts &#8212; Adults | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R71:  | Haircuts &#8212; Kids | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R72:  | Grooming / Beauty | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R73:  |   Total &#8212; CLOTHING &amp; GROOMING |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R74:  | EDUCATION &amp; CHILDREN |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R75:  | School Fees | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R76:  | Uniforms &amp; Books | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R77:  | Sport &amp; Activities | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R78:  | Tutoring | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R79:  | Child Care / After School | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R80:  | Child Support | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R81:  |   Total &#8212; EDUCATION &amp; CHILDREN |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R82:  | WORK-RELATED COSTS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R83:  | Professional Memberships | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R84:  | Work Subscriptions | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R85:  | Other Work Costs | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R86:  |   Total &#8212; WORK-RELATED COSTS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R87:  | HEALTH &amp; FITNESS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R88:  | Gym / Pilates / Yoga | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R89:  | Other Fitness | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R90:  |   Total &#8212; HEALTH &amp; FITNESS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R91:  | GIFTS &amp; DONATIONS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R92:  | Birthdays | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R93:  | Christmas | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R94:  | Other Gifts | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R95:  | Charitable Donations | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R96:  |   Total &#8212; GIFTS &amp; DONATIONS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R97:  | HOLIDAYS &amp; TRAVEL |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R98:  | Holiday Home Costs | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R99:  | Annual Overseas Trip | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R100:  | Domestic Travel | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R101:  | Other Travel | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R102:  |   Total &#8212; HOLIDAYS &amp; TRAVEL |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R103:  | MISCELLANEOUS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R104:  | Pet Costs | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R105:  | Other Expenses | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R106:  |   Total &#8212; MISCELLANEOUS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R108:  | TOTAL ANNUAL HOUSEHOLD EXPENSES |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R109:  | GRAND TOTAL |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R112:  | &#128203; HOW TO USE &#8212; HOUSEHOLD EXPENDITURE |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R113:  | Enter amounts in ONE frequency column only per item. Annual total auto-calculates from whichever column you use. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R114:  | &#8594;  Column C (Per Week) |  | Enter if you pay/track this weekly (e.g. groceries: $300/wk) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R115:  | &#8594;  Column D (Per Month) |  | Enter if paid monthly (e.g. electricity: $250/mo) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R116:  | &#8594;  Column E (Per Quarter) |  | Enter if paid quarterly (e.g. council rates: $800/qtr) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R117:  | &#8594;  Column F (Per Year) |  | Enter annual lump sums (e.g. car registration: $900/yr) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R118:  | &#8594;  Column G (Annual Total) |  | Auto-calculated &#8212; do not enter here. Sum of all frequency columns &#215; multiplier |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R119:  | &#8594;  Right side (Cols I&#8211;N) |  | Entertainment breakdown per person &#8212; separate to household expenses |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R120:  | &#128161; Tip |  | Start with Groceries and Vehicle expenses first &#8212; these are usually the biggest surprises. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+
+========== Sheet 7: 📅 Monthly Cashflow ==========
+R3:  | &#169; Baobab Group of Companies (incl. Baobab CFO Pty Ltd &amp; Baobab Consulting). No unauthorised use or reproduction without prior writt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R4:  | INCOME | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec | ANNUAL
+TOTAL |  |  |  |  |  |  | 
+R7:  |   Trust Distributions |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R8:  |   Consulting Income |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R9:  |   Rental Income (net) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R10:  |   Dividends / Investment |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R11:  |   Total &#8212; INCOME |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R12:  | HOUSEHOLD EXPENSES |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R13:  |   Groceries &amp; Food |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R14:  |   Utilities (electricity, gas, water) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R15:  |   Council Rates (usually quarterly) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R16:  |   Insurance &#8212; Home &amp; Car |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R17:  |   Subscriptions &amp; Streaming |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R18:  |   Total &#8212; HOUSEHOLD EXPENSES |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R19:  | EDUCATION &amp; CHILDREN |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R20:  |   School Fees (Term 1) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R21:  |   School Fees (Term 2) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R22:  |   School Fees (Term 3) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R23:  |   School Fees (Term 4) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R24:  |   Uniforms &amp; Books |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R25:  |   Sport &amp; Activities |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R26:  |   Total &#8212; EDUCATION &amp; CHILDREN |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R27:  | IRREGULAR / ONE-OFF EXPENSES |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R28:  |   Car Registration | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R29:  |   Private Health &#8212; Annual Renewal | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R30:  |   Dentist / Medical (annual) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R31:  |   Holidays | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R32:  |   Christmas Gifts | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R33:  |   Birthdays | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R34:  |   Property Maintenance (unplanned) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R35:  |   Other Large Expenses | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R36:  |   Total &#8212; IRREGULAR / ONE-OFF EXPENSES |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R37:  | DEBT REPAYMENTS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R39:  |   Investment Loan 1 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R40:  |   Investment Loan 2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R41:  |   Investment Loan 3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R42:  | Personal Loan | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R43:  |   Credit Card Minimum | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R44:  |   Total &#8212; DEBT REPAYMENTS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R45:  | SAVINGS &amp; INVESTMENTS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R46:  |   Emergency Fund Top-up | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R47:  |   Share Purchases | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R48:  |   Salary Sacrifice (super) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R49:  |   Holiday Fund | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R50:  |   Education Fund | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |  |  |  |  |  |  | 
+R51:  |   Total &#8212; SAVINGS &amp; INVESTMENTS |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R53:  | MONTHLY CASHFLOW SUMMARY |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R54:  | Summary Item | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec | TOTAL |  |  |  |  |  |  | 
+R55:  | Total Income |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R56:  | Total Expenses |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R57:  | Education |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R58:  | Irregular |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R59:  | Debt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R60:  | Savings |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R61:  | NET CASHFLOW (Surplus/Deficit) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R64:  | &#128203; HOW TO USE &#8212; MONTHLY CASHFLOW |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R65:  | Map expected income and expenses to the actual calendar month they occur. Reveals timing gaps the annual budget misses. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R66:  | &#8594;  Income section |  | Enter expected NET income per month &#8212; use actuals once known |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R67:  | &#8594;  Education (school fees) |  | Australian school fees are Term-based: T1=Feb, T2=May, T3=Jul, T4=Oct |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R68:  | &#8594;  Irregular expenses |  | This is where Christmas, holidays, car rego all live &#8212; the 'ambush' expenses |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R69:  | &#8594;  Net Cashflow row |  | Positive = surplus, (brackets) = deficit. Red months need advance planning |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R70:  | &#8594;  Savings/Investments |  | Enter planned share purchases, extra super, holiday savings here |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R71:  | &#128161; Tip |  | Fill in Term 1 school fees in February, Term 4 in October, Christmas in December. These three months usually show the biggest deficits. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+
+========== Sheet 8: 🏦 Debt Schedule ==========
+R3:  | &#169; Baobab Group of Companies (incl. Baobab CFO Pty Ltd &amp; Baobab Consulting). No unauthorised use or reproduction without prior writt |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R4:  | Property / Asset | Loan Balance | Interest Rate | P &amp; I or IO | Monthly Interest | Loan Term (yrs) | Monthly Repayment | Type |  |  |  |  |  |  | 
+R5:  | INVESTMENT LOANS (Tax Deductible) |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R6:  | e.g. Investment Property 1 | 0 | 0 | P&amp;I |  | 30 |  | Investment |  |  |  |  |  |  | 
+R7:  | e.g. Investment Property 2 | 0 | 0 | P&amp;I |  | 30 |  | Investment |  |  |  |  |  |  | 
+R8:  | e.g. Investment Property 3 | 0 | 0 | P&amp;I |  | 30 |  | Investment |  |  |  |  |  |  | 
+R9:  | e.g. Investment Property 4 | 0 | 0 | P&amp;I |  | 30 |  | Investment |  |  |  |  |  |  | 
+R10:  | e.g. Shares / Margin Loan | 0 | 0 | P&amp;I |  | 30 |  | Investment |  |  |  |  |  |  | 
+R11:  | e.g. Investment Property 5 | 0 | 0 | P&amp;I |  | 30 |  | Investment |  |  |  |  |  |  | 
+R12:  | e.g. Other Investment | 0 | 0 | P&amp;I |  | 30 |  | Investment |  |  |  |  |  |  | 
+R13:  |  | 0 | 0 | P&amp;I |  | 30 |  | Investment |  |  |  |  |  |  | 
+R14:  |  | 0 | 0 | P&amp;I |  | 30 |  | Investment |  |  |  |  |  |  | 
+R15:  |  | 0 | 0 | P&amp;I |  | 30 |  | Investment |  |  |  |  |  |  | 
+R16:  | TOTAL INVESTMENT LOANS |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R18:  | PRIVATE / NON-DEDUCTIBLE LOANS |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R19:  | e.g. Principal Residence (PPOR) | 0 | 0 | P&amp;I |  | 30 |  | Private |  |  |  |  |  |  | 
+R20:  | e.g. Vehicle Loan | 0 | 0 | P&amp;I |  | 30 |  | Private |  |  |  |  |  |  | 
+R21:  | e.g. Personal Loan | 0 | 0 | P&amp;I |  | 30 |  | Private |  |  |  |  |  |  | 
+R22:  | e.g. Credit Card | 0 | 0 | P&amp;I |  | 30 |  | Private |  |  |  |  |  |  | 
+R23:  |  | 0 | 0 | P&amp;I |  | 30 |  | Private |  |  |  |  |  |  | 
+R24:  | TOTAL PRIVATE LOANS |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R26:  | COMBINED DEBT SUMMARY |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R27:  | Total Loan Balance |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R28:  | Total Monthly Interest |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R29:  | Total Monthly Repayment |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R32:  | &#128203; HOW TO USE &#8212; DEBT SCHEDULE |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R33:  | Enter loan details. Monthly repayment calculates automatically using PMT formula. |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R34:  | &#8594;  Investment Loans section |  | All loans where interest is tax-deductible (rental properties, investment shares) |  |  |  |  |  |  |  |  |  |  |  | 
+R35:  | &#8594;  Private Loans section |  | Home loan (PPOR), car loans, personal loans &#8212; interest NOT deductible |  |  |  |  |  |  |  |  |  |  |  | 
+R36:  | &#8594;  Interest Rate |  | Enter as a decimal e.g. 6.2% = enter 0.062 &#8212; or Excel format 6.20% |  |  |  |  |  |  |  |  |  |  |  | 
+R37:  | &#8594;  P&amp;I or IO |  | Enter 'P&amp;I' for principal + interest, or 'IO' for interest-only loans |  |  |  |  |  |  |  |  |  |  |  | 
+R38:  | &#8594;  Monthly Repayment |  | Auto-calculated via PMT &#8212; compare to your actual bank statement |  |  |  |  |  |  |  |  |  |  |  | 
+R39:  | &#8594;  Loan Term |  | Enter remaining years (e.g. 25 if 5 years into a 30-year loan) |  |  |  |  |  |  |  |  |  |  |  | 
+R40:  | &#128161; Tip |  | For interest-only loans, the repayment = interest only. Ensure 'IO' is entered in the P&amp;I column. |  |  |  |  |  |  |  |  |  |  |  | 
+
+========== Sheet 9: 🏘 Rental Properties ==========
+R3:  | &#169; Baobab Group of Companies (incl. Baobab CFO Pty Ltd &amp; Baobab Consulting). No unauthorised use or reproduction without prior writt |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R4:  | Property 1 |  |  | Property 2 |  |  | Property 3 |  |  | Property 4 |  |  |  |  |  |  |  |  |  |  | 
+R5:  | Item | Annual |  | Item | Annual |  | Item | Annual |  | Item | Annual |  | Summary Item | Total (4 props) |  |  |  |  |  |  | 
+R6:  | Property Address: |  |  | Property Address: |  |  | Property Address: |  |  | Property Address: |  |  |  |  |  |  |  |  |  |  | 
+R7:  | Weeks Rented: | 52 |  | Weeks Rented: | 52 |  | Weeks Rented: | 52 |  | Weeks Rented: | 52 |  |  |  |  |  |  |  |  |  | 
+R8:  | Weekly Rent: | 0 |  | Weekly Rent: | 0 |  | Weekly Rent: | 0 |  | Weekly Rent: | 0 |  | PORTFOLIO SUMMARY |  |  |  |  |  |  |  | 
+R9:  | Ownership % | 1 |  | Ownership % | 1 |  | Ownership % | 1 |  | Ownership % | 1 |  | Total Rent Received |  |  |  |  |  |  |  | 
+R10:  | INCOME |  |  | INCOME |  |  | INCOME |  |  | INCOME |  |  | Total Expenses |  |  |  |  |  |  |  | 
+R11:  | Rent Received |  |  | Rent Received |  |  | Rent Received |  |  | Rent Received |  |  | Total Net (Your Share) |  |  |  |  |  |  |  | 
+R12:  | EXPENSES |  |  | EXPENSES |  |  | EXPENSES |  |  | EXPENSES |  |  |  |  |  |  |  |  |  |  | 
+R13:  | Advertising for Tenants | 0 |  | Advertising for Tenants | 0 |  | Advertising for Tenants | 0 |  | Advertising for Tenants | 0 |  |  |  |  |  |  |  |  |  | 
+R14:  | Body Corporate Fees | 0 |  | Body Corporate Fees | 0 |  | Body Corporate Fees | 0 |  | Body Corporate Fees | 0 |  |  |  |  |  |  |  |  |  | 
+R15:  | Borrowing Expenses | 0 |  | Borrowing Expenses | 0 |  | Borrowing Expenses | 0 |  | Borrowing Expenses | 0 |  |  |  |  |  |  |  |  |  | 
+R16:  | Cleaning | 0 |  | Cleaning | 0 |  | Cleaning | 0 |  | Cleaning | 0 |  |  |  |  |  |  |  |  |  | 
+R17:  | Council Rates | 0 |  | Council Rates | 0 |  | Council Rates | 0 |  | Council Rates | 0 |  |  |  |  |  |  |  |  |  | 
+R18:  | Depreciation on Plant | 0 |  | Depreciation on Plant | 0 |  | Depreciation on Plant | 0 |  | Depreciation on Plant | 0 |  |  |  |  |  |  |  |  |  | 
+R19:  | Gardening / Lawn Mowing | 0 |  | Gardening / Lawn Mowing | 0 |  | Gardening / Lawn Mowing | 0 |  | Gardening / Lawn Mowing | 0 |  |  |  |  |  |  |  |  |  | 
+R20:  | Insurance | 0 |  | Insurance | 0 |  | Insurance | 0 |  | Insurance | 0 |  |  |  |  |  |  |  |  |  | 
+R21:  | Interest on Loan | 0 |  | Interest on Loan | 0 |  | Interest on Loan | 0 |  | Interest on Loan | 0 |  |  |  |  |  |  |  |  |  | 
+R22:  | Land Tax | 0 |  | Land Tax | 0 |  | Land Tax | 0 |  | Land Tax | 0 |  |  |  |  |  |  |  |  |  | 
+R23:  | Legal Fees | 0 |  | Legal Fees | 0 |  | Legal Fees | 0 |  | Legal Fees | 0 |  |  |  |  |  |  |  |  |  | 
+R24:  | Pest Control | 0 |  | Pest Control | 0 |  | Pest Control | 0 |  | Pest Control | 0 |  |  |  |  |  |  |  |  |  | 
+R25:  | Property Agent Fees | 0 |  | Property Agent Fees | 0 |  | Property Agent Fees | 0 |  | Property Agent Fees | 0 |  |  |  |  |  |  |  |  |  | 
+R26:  | Repairs &amp; Maintenance | 0 |  | Repairs &amp; Maintenance | 0 |  | Repairs &amp; Maintenance | 0 |  | Repairs &amp; Maintenance | 0 |  |  |  |  |  |  |  |  |  | 
+R27:  | Capital Works Deduction | 0 |  | Capital Works Deduction | 0 |  | Capital Works Deduction | 0 |  | Capital Works Deduction | 0 |  |  |  |  |  |  |  |  |  | 
+R28:  | Water Charges | 0 |  | Water Charges | 0 |  | Water Charges | 0 |  | Water Charges | 0 |  |  |  |  |  |  |  |  |  | 
+R29:  | Sundry | 0 |  | Sundry | 0 |  | Sundry | 0 |  | Sundry | 0 |  |  |  |  |  |  |  |  |  | 
+R30:  | Total Expenses |  |  | Total Expenses |  |  | Total Expenses |  |  | Total Expenses |  |  |  |  |  |  |  |  |  |  | 
+R31:  | Net Profit / (Loss) |  |  | Net Profit / (Loss) |  |  | Net Profit / (Loss) |  |  | Net Profit / (Loss) |  |  |  |  |  |  |  |  |  |  | 
+R32:  | Your Share (Net) |  |  | Your Share (Net) |  |  | Your Share (Net) |  |  | Your Share (Net) |  |  |  |  |  |  |  |  |  |  | 
+R33:  | &#9888; Neg. Gearing Status |  |  | &#9888; Neg. Gearing Status |  |  | &#9888; Neg. Gearing Status |  |  | &#9888; Neg. Gearing Status |  |  |  |  |  |  |  |  |  |  | 
+R34:  | Deductible Loss (tax) |  |  | Deductible Loss (tax) |  |  | Deductible Loss (tax) |  |  | Deductible Loss (tax) |  |  |  |  |  |  |  |  |  |  | 
+R35:  | CGT Discount on Sale |  |  |  |  |  |  |  |  | CGT Discount on Sale |  |  |  |  |  |  |  |  |  |  | 
+R39:  | &#128203; HOW TO USE &#8212; RENTAL PROPERTIES |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R40:  | Enter details for up to 4 rental properties. Each column is a separate property. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R41:  | &#8594;  Weekly Rent &#215; Weeks |  | Formula auto-calculates gross annual rent. Adjust weeks for vacancies. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R42:  | &#8594;  Ownership % |  | If jointly owned 50/50, enter 0.5. Sole owner = 1.0 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R43:  | &#8594;  Expenses |  | Enter annual cost for each expense line. Interest on Loan feeds from Debt Schedule. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R44:  | &#8594;  Capital Works Deduction |  | Enter annual depreciation schedule amount (from quantity surveyor report) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R45:  | &#8594;  NET PROFIT/LOSS |  | If negative = negatively geared. This offsets other income at tax time. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R46:  | &#8594;  Your Share |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R47:  | &#128161; Tip |  | Get a depreciation schedule for each property &#8212; it can add $3,000&#8211;$8,000 in annual tax deductions. |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+
+========== Sheet 10: 🎯 Goals &amp; Super ==========
+R3:  | &#169; Baobab Group of Companies (incl. Baobab CFO Pty Ltd &amp; Baobab Consulting). No unauthorised use or reproduction without prior writt |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R4:  | GOAL 1 &#8212; EMERGENCY FUND |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R5:  | Item | Target | Current Balance | Shortfall | Months Coverage |  |  |  |  |  |  |  |  |  |  | 
+R6:  | Emergency Fund |  | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R8:  | GOAL TRACKER &#8212; SAVINGS GOALS |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R9:  | Goal | Target Amount | Current Saved | Target Date | Monthly Req. |  |  |  |  |  |  |  |  |  |  | 
+R10:  | Annual Overseas Holiday | 15000 | 0 | Dec-25 |  |  |  |  |  |  |  |  |  |  |  | 
+R11:  | Holiday Home / Short Stays | 8000 | 0 | Dec-25 |  |  |  |  |  |  |  |  |  |  |  | 
+R12:  | Education Fund &#8212; Child 1 | 50000 | 0 | Jan-30 |  |  |  |  |  |  |  |  |  |  |  | 
+R13:  | Education Fund &#8212; Child 2 | 50000 | 0 | Jan-32 |  |  |  |  |  |  |  |  |  |  |  | 
+R14:  | Car Replacement &#8212; Vehicle 1 | 40000 | 0 | Jun-27 |  |  |  |  |  |  |  |  |  |  |  | 
+R15:  | Car Replacement &#8212; Vehicle 2 | 40000 | 0 | Jun-28 |  |  |  |  |  |  |  |  |  |  |  | 
+R16:  | Home Renovation | 50000 | 0 | Jun-26 |  |  |  |  |  |  |  |  |  |  |  | 
+R17:  | Investment Property &#8212; Next Purchase | 200000 | 0 | Jun-28 |  |  |  |  |  |  |  |  |  |  |  | 
+R18:  | Other Goal 1 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R19:  | Other Goal 2 | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R21:  | SUPERANNUATION TRACKER |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R22:  | Super Item |  |  | Notes |  |  |  |  |  |  |  |  |  |  |  | 
+R23:  | Current Super Balance | 0 | 0 | Enter current balance |  |  |  |  |  |  |  |  |  |  |  | 
+R24:  | Age | 0 | 0 | Current age |  |  |  |  |  |  |  |  |  |  |  | 
+R25:  | Target Retirement Age | 65 | 65 | Typical: 60-67 |  |  |  |  |  |  |  |  |  |  |  | 
+R26:  | Years to Retirement |  |  | Auto-calculated |  |  |  |  |  |  |  |  |  |  |  | 
+R27:  | Annual Super Contributions (Total) |  |  | SGC + voluntary |  |  |  |  |  |  |  |  |  |  |  | 
+R28:  | Projected Super at Retirement |  |  | 7% p.a. growth est. |  |  |  |  |  |  |  |  |  |  |  | 
+R29:  | Target Super at Retirement | 1500000 | 1500000 | ASFA comfortable single |  |  |  |  |  |  |  |  |  |  |  | 
+R30:  | Super Shortfall |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R32:  | RETIREMENT INCOME PLANNING |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R33:  | Item |  |  | Notes |  |  |  |  |  |  |  |  |  |  |  | 
+R34:  | Target Annual Income in Retirement | 120000 | 120000 |  |  |  |  |  |  |  |  |  |  |  |  | 
+R35:  | Expected Annual Pension Age Pension | 0 | 0 | If eligible (FY26: ~$30,000 pa couples) |  |  |  |  |  |  |  |  |  |  |  | 
+R36:  | Net Annual Income from Super |  |  | Auto calc or enter |  |  |  |  |  |  |  |  |  |  |  | 
+R37:  | Rental Income (in retirement) | 0 | 0 | From investment properties |  |  |  |  |  |  |  |  |  |  |  | 
+R38:  | Annual Shortfall / Surplus |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R41:  | &#128203; HOW TO USE &#8212; GOALS &amp; MILESTONES |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R42:  | Track every financial goal in one place. Monthly Required auto-calculates how much to save each month. |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R43:  | &#8594;  Emergency Fund |  | Auto-targets 6 months of expenses from the Household Expenditure tab. Fill in Current Balance. |  |  |  |  |  |  |  |  |  |  |  |  | 
+R44:  | &#8594;  Savings Goals table |  | Enter Target Amount, Current Saved, and Target Date. Monthly Required calculates automatically. |  |  |  |  |  |  |  |  |  |  |  |  | 
+R45:  | &#8594;  Superannuation section |  | Enter current balance and age. Review annually at end of financial year. |  |  |  |  |  |  |  |  |  |  |  |  | 
+R46:  |  |  | 12% &#8212; if employer pays less, report to ATO via the Super Guarantee Charge process. |  |  |  |  |  |  |  |  |  |  |  |  | 
+R47:  | &#8594;  Concessional Cap |  | $30,000 total (SGC + salary sacrifice + personal deductible). Unused caps can carry forward. |  |  |  |  |  |  |  |  |  |  |  |  | 
+R48:  | &#8594;  Retirement Planning |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+R49:  | &#128161; Tip |  | Review this tab every 6 months. Small increases to savings goals early make a large difference over 20+ years. |  |  |  |  |  |  |  |  |  |  |  |  | 
+
+========== Sheet 11: 📋 Summary ==========
+R3:  | &#169; Baobab Group of Companies (incl. Baobab CFO Pty Ltd &amp; Baobab Consulting). No unauthorised use or reproduction without prior writt |  |  |  |  |  |  |  |  |  | 
+R4:  | Category | Weekly | Monthly | Annual |  |  |  |  |  |  | 
+R5:  | INCOME |  |  |  |  |  |  |  |  |  | 
+R6:  | Salary / Wages (net take-home) |  |  |  |  |  |  |  |  |  | 
+R7:  | Trust / Dividends |  |  |  |  |  |  |  |  |  | 
+R8:  | Consulting |  |  |  |  |  |  |  |  |  | 
+R9:  | Investment Returns |  |  |  |  |  |  |  |  |  | 
+R10:  | Net Rental Income |  |  |  |  |  |  |  |  |  | 
+R11:  | Total INCOME |  |  |  |  |  |  |  |  |  | 
+R13:  | TOTAL OUTGOINGS |  |  |  |  |  |  |  |  |  | 
+R14:  | Household Expenses |  |  |  |  |  |  |  |  |  | 
+R15:  | Entertainment |  |  |  |  |  |  |  |  |  | 
+R16:  | Investment Property |  |  |  |  |  |  |  |  |  | 
+R17:  | Investment Debt |  |  |  |  |  |  |  |  |  | 
+R18:  | Private Debt |  |  |  |  |  |  |  |  |  | 
+R19:  | Capital Expenditure |  |  |  |  |  |  |  |  |  | 
+R20:  | Discretionary | 0 | 0 | 0 |  |  |  |  |  |  | 
+R21:  | Savings |  |  |  |  |  |  |  |  |  | 
+R22:  | Total Outgoings |  |  |  |  |  |  |  |  |  | 
+R24:  | CASHFLOW SURPLUS / (DEFICIT) |  |  |  |  |  |  |  |  |  | 
+R25:  | NET CASHFLOW |  |  |  |  |  |  |  |  |  | 
+R28:  | &#128203; HOW TO USE &#8212; SUMMARY |  |  |  |  |  |  |  |  |  | 
+R29:  | High-level household cashflow overview. Most figures here link automatically from the detail tabs. |  |  |  |  |  |  |  |  |  | 
+R30:  | &#8594;  Purpose |  | Share this tab with clients as the key meeting summary &#8212; one page view |  |  |  |  |  |  |  | 
+R31:  | &#8594;  Weekly / Monthly / Annual |  | Three views of the same figures. Weekly is most relatable for day-to-day planning. |  |  |  |  |  |  |  | 
+R32:  | &#8594;  Surplus / (Deficit) |  | Positive = cash left over. Negative = spending exceeds income &#8212; immediate action needed. |  |  |  |  |  |  |  | 
+R33:  | &#8594;  Discretionary + Savings |  | Yellow = enter here. These are the most flexible parts of the budget. |  |  |  |  |  |  |  | 
+R34:  | &#128161; Tip |  | The Surplus figure should ideally be zero-based (YNAB model) &#8212; every surplus dollar allocated to a Goal. |  |  |  |  |  |  |  | 
+
+========== Sheet 12: 📈 A+L ==========
+R3:  | &#169; Baobab Group of Companies (incl. Baobab CFO Pty Ltd &amp; Baobab Consulting). No unauthorised use or reproduction without prior writt |  |  |  |  |  |  |  |  |  |  |  |  | 
+R4:  | Category | Description | Details | Assets | Liabilities | Net Assets | Ownership Entity |  |  |  |  |  |  | 
+R5:  | TOTALS |  |  |  |  |  |  |  |  |  |  |  |  | 
+R6:  | PROPERTY &#8212; Personal Residence |  |  |  |  |  |  |  |  |  |  |  |  | 
+R7:  | PROPERTY | Main Residence | Enter current market value and loan balance | 0 | 0 |  | Joint |  |  |  |  |  |  | 
+R8:  | PROPERTY | Holiday Home / Investment |  | 0 | 0 |  | Joint |  |  |  |  |  |  | 
+R9:  |   Subtotal |  |  |  |  |  |  |  |  |  |  |  |  | 
+R10:  | PROPERTY &#8212; Investment Properties |  |  |  |  |  |  |  |  |  |  |  |  | 
+R11:  | PROPERTY | Investment Property 1 | Enter loan balance &#8212; see Debt Schedule for detail | 0 | 0 |  | Joint |  |  |  |  |  |  | 
+R12:  | PROPERTY | Investment Property 2 | Enter loan balance &#8212; see Debt Schedule for detail | 0 | 0 |  | Joint |  |  |  |  |  |  | 
+R13:  | PROPERTY | Investment Property 3 | Enter loan balance &#8212; see Debt Schedule for detail | 0 | 0 |  |  |  |  |  |  |  |  | 
+R14:  | PROPERTY | Investment Property 4 | Enter loan balance &#8212; see Debt Schedule for detail | 0 | 0 |  |  |  |  |  |  |  |  | 
+R15:  |   Subtotal |  |  |  |  |  |  |  |  |  |  |  |  | 
+R16:  | CASH &amp; SAVINGS |  |  |  |  |  |  |  |  |  |  |  |  | 
+R17:  | CASH &amp; SAVINGS | Transaction Accounts |  | 0 | 0 |  | Joint |  |  |  |  |  |  | 
+R18:  | CASH &amp; SAVINGS | Savings Accounts |  | 0 | 0 |  | Joint |  |  |  |  |  |  | 
+R19:  | CASH &amp; SAVINGS | Term Deposits |  | 0 | 0 |  |  |  |  |  |  |  |  | 
+R20:  |   Subtotal |  |  |  |  |  |  |  |  |  |  |  |  | 
+R21:  | SUPERANNUATION |  |  |  |  |  |  |  |  |  |  |  |  | 
+R22:  | SUPERANNUATION |  | &#8594; Links from Goals &amp; Super tab |  | 0 |  |  |  |  |  |  |  |  | 
+R23:  | SUPERANNUATION |  | &#8594; Links from Goals &amp; Super tab |  | 0 |  |  |  |  |  |  |  |  | 
+R24:  |   Subtotal |  |  |  |  |  |  |  |  |  |  |  |  | 
+R25:  | SHARES &amp; INVESTMENTS |  |  |  |  |  |  |  |  |  |  |  |  | 
+R26:  | SHARES &amp; INVESTMENTS | ASX Listed Shares |  | 0 | 0 |  | Joint |  |  |  |  |  |  | 
+R27:  | SHARES &amp; INVESTMENTS | Managed Funds |  | 0 | 0 |  |  |  |  |  |  |  |  | 
+R28:  | SHARES &amp; INVESTMENTS | Other Investments |  | 0 | 0 |  |  |  |  |  |  |  |  | 
+R29:  |   Subtotal |  |  |  |  |  |  |  |  |  |  |  |  | 
+R30:  | BUSINESS INTERESTS |  |  |  |  |  |  |  |  |  |  |  |  | 
+R31:  | BUSINESS INTERESTS |  | Business value | 0 | 0 |  | Trust |  |  |  |  |  |  | 
+R32:  | BUSINESS INTERESTS | Other Business Interest |  | 0 | 0 |  |  |  |  |  |  |  |  | 
+R33:  |   Subtotal |  |  |  |  |  |  |  |  |  |  |  |  | 
+R34:  | CREDIT CARDS |  |  |  |  |  |  |  |  |  |  |  |  | 
+R35:  | CREDIT CARDS | Credit Card 1 |  | 0 | 0 |  | Joint |  |  |  |  |  |  | 
+R36:  | CREDIT CARDS | Credit Card 2 |  | 0 | 0 |  |  |  |  |  |  |  |  | 
+R37:  |   Subtotal |  |  |  |  |  |  |  |  |  |  |  |  | 
+R38:  | OTHER ASSETS |  |  |  |  |  |  |  |  |  |  |  |  | 
+R39:  | OTHER ASSETS | Motor Vehicles |  | 0 | 0 |  | Joint |  |  |  |  |  |  | 
+R40:  | OTHER ASSETS | Personal Property |  | 0 | 0 |  |  |  |  |  |  |  |  | 
+R41:  |   Subtotal |  |  |  |  |  |  |  |  |  |  |  |  | 
+R44:  | &#128203; HOW TO USE &#8212; ASSETS &amp; LIABILITIES |  |  |  |  |  |  |  |  |  |  |  |  | 
+R45:  | Build the family's full balance sheet. Update at each review &#8212; quarterly is ideal. |  |  |  |  |  |  |  |  |  |  |  |  | 
+R46:  | &#8594;  Assets column (E) |  | Enter current market value for each asset (property: council valuation or REA estimate) |  |  |  |  |  |  |  |  |  |  | 
+R47:  | &#8594;  Liabilities column (F) |  | Enter current loan balance for each liability |  |  |  |  |  |  |  |  |  |  | 
+R48:  | &#8594;  Net Assets (G) |  | Auto-calculated as Assets &#8211; Liabilities per row |  |  |  |  |  |  |  |  |  |  | 
+R49:  | &#8594;  Totals row (top) |  | Sum of all Assets, Liabilities, Net Assets across all categories |  |  |  |  |  |  |  |  |  |  | 
+R50:  | &#8594;  Ownership Entity |  |  |  |  |  |  |  |  |  |  |  |  | 
+R51:  | &#8594;  Superannuation |  |  |  |  |  |  |  |  |  |  |  |  | 
+R52:  | &#8594;  As at date |  | Update the date (cell C3) each time you refresh the balance sheet |  |  |  |  |  |  |  |  |  |  | 
+R53:  | &#128161; Tip |  | Property values should be conservative estimates, not wishful thinking. Use recent comparable sales. |  |  |  |  |  |  |  |  |  |  | 
